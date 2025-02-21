@@ -746,11 +746,12 @@
       if (res.ok) {
         const data = await res.json();
         console.log('post ok', data);
+        window.location.href = 'https://kim-29.github.io/whasungAluminium/';
       } else {
         const errorText = await res.text();
         console.log('post error', res.statusText, errorText)
       }
-      window.location.href = 'https://kim-29.github.io/whasungAluminium/';
+      
       
     });
 
