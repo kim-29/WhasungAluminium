@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="section book">
+    
+    <div class="book_container container ">
+      <h1 class="section-title">작업작성</h1>
+      <div class="cal-card grid">
+        <a href="#" class="card project45">
+          <h3 class="card_title">45mm project</h3>
+        </a>
+        <a href="#" class="card window88">
+          <h3 class="card_title">88mm slide window</h3>
+        </a>
+        <a href="/112window.html"  class="card window112">
+          <h3 class="card_title">112mm slide window</h3>
+        </a>
+        <a href="#" class="card window130">
+          <h3 class="card_title">130mm slide window</h3>
+        </a>
+        <a href="#" class="card door">
+          <h3 class="card_title">door</h3>
+        </a>
+        <a href="#" class="card gallery">
+          <h3 class="card_title">gallery</h3>
+        </a>
+        <a href="#" class="card grate">
+          <h3 class="card_title">방범창살</h3>
+        </a>
+        <a href="#" class="card wall">
+          <h3 class="card_title">커튼월</h3>
+        </a>
+      </div>
+      
+    </div>
+  </div>
+  <!--database : read only로 작성(get method fetch)-->
+  <!--무게 입력은 작업내역의 page에서 입력하여 send하면 cloudflare를 통해 notion에 데이터베이스 업데이트 합니다. list는 최대 20개만 표시합니다.-->
+  <section class="database">
+    <div class="database_container container grid">
+      <h1 class="section-title">작업일지</h1>
+      <ul class="lists">
+        <li class="list list-title grid"><span>거래처명</span><span>작업내역</span><span>상태</span><span>요청날짜</span><span>무게</span><span>금액</span></li>
+      </ul>
+    </div>
+  </section>
+  <script src="js/script.js"></script>
+</body>
+</html>
