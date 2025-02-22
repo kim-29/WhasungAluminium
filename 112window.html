@@ -723,6 +723,37 @@
 
     const send = document.querySelector('.send');
     send.addEventListener('click', async () => {
+      
+      const div = document.createElement('div')
+      div.innerHTML=`
+        <form action="" class="footer">
+          <label for="last-weight">
+            <input type="number" id="last-weight" placeholder="kg">
+            <button class="weight_send button">절단완료</button>
+          </label>
+        </form>
+        <script>
+          let pageId
+          function getValue(data){
+            pageId = data
+          }
+
+          const button = document.querySelector('.weight_send')
+          button.addEventListener('click',async ()=>{
+          const weight = Number(document.querySelector('#last-weight').value)
+            const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                pageId: pageId,
+                weight: weight
+              })
+            })
+          })`
+      cutting_html.querySelector('body').appendChild(div)
+      
       const client_name = prompt('거래처명을 입력하세요:');
       const now = new Date();
       const worklist_url_key = now.toISOString()
@@ -745,7 +776,6 @@
       })
       if (res.ok) {
         const data = await res.json();
-        console.log('post ok', data);
         window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
       } else {
         const errorText = await res.text();

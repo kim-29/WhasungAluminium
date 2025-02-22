@@ -30,7 +30,7 @@ window.addEventListener('load',async ()=>{
     const li = document.createElement('li');
     li.innerHTML = `
       <span>${result.properties.clients.title[0].text.content}</span>
-      <span><button class="list-work" data-key="${result.properties.worklist.url}">작업내용</button></span>
+      <span><button class="list-work" data-page="${result.id}" data-key="${result.properties.worklist.url}">작업내용</button></span>
       <span class="list-status">${result.properties.status.status.name}</span>
       <span class="request-day">${new Date(result.properties["request day"].created_time).toLocaleDateString('ko-KR')}</span>
       <span>${result.properties.weight.number===null?"":result.properties.weight.number}</span> <span>${result.properties.price.formula.string===null?"":result.properties.price.formula.string}</span>`;
@@ -38,18 +38,25 @@ window.addEventListener('load',async ()=>{
     list_ul.appendChild(li);
     /*li에 이벤트리스너 삽입*/
   }
+  
+  
+  /*작업내역 클릭시*/
   const list_works = document.querySelectorAll('.list-work');
   
   list_works.forEach(list_work=>{
     list_work.addEventListener('click',async function(){
       const url_key = "https://shrill-hill-66e0.nameofwind.workers.dev/"+this.getAttribute('data-key');
-      console.log(url_key)
+      const pageId = this.getAttribute('data-page')
+      console.log(pageId)
       const res = await fetch(url_key);
       if (res.ok) {
         const htmlText = await res.text();
         const newWindow = window.open();
         newWindow.document.write(htmlText);
         newWindow.document.close();
+        newWindow.onload = function() {
+          newWindow.getValue(pageId)
+        };
       } else {
         console.error('failed to load kv html document:', res.status);
       }
