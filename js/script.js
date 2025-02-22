@@ -33,7 +33,7 @@ window.addEventListener('load',async ()=>{
       <span><button class="list-work" data-page="${result.id}" data-key="${result.properties.worklist.url}">작업내용</button></span>
       <span class="list-status">${result.properties.status.status.name}</span>
       <span class="request-day">${new Date(result.properties["request day"].created_time).toLocaleDateString('ko-KR')}</span>
-      <span>${result.properties.weight.number===null?"":result.properties.weight.number}</span> <span>${result.properties.price.formula.string===null?"":result.properties.price.formula.string}</span>`;
+      <span>${result.properties.weight.number===null?"":result.properties.weight.number}kg</span> <span>${result.properties.price.formula.number===null?"":result.properties.price.formula.number}</span>`;
     li.classList.add('list', 'grid');
     list_ul.appendChild(li);
     /*li에 이벤트리스너 삽입*/
