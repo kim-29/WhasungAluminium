@@ -31,7 +31,7 @@ window.addEventListener('load',async ()=>{
     li.innerHTML = `
       <span>${result.properties.clients.title[0].text.content}</span>
       <span><button class="list-work" data-page="${result.id}" data-key="${result.properties.worklist.url}">작업내용</button></span>
-      <span class="list-status">${result.properties.status.status.name}</span>
+      <span class="list-status" style= "color: ${result.properties.status.status.color}"> ${result.properties.status.status.name}</span>
       <span class="request-day">${new Date(result.properties["request day"].created_time).toLocaleDateString('ko-KR')}</span>
       <span>${result.properties.weight.number?result.properties.weight.number+'kg':''}</span>
       <span>${result.properties.price.formula.number?(result.properties.price.formula.number).toLocaleString('en-US')+'원':''}</span>`;

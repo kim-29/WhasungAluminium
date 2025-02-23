@@ -40,3 +40,13 @@ a{
   grid-template-columns: repeat(6,1fr);
   margin-block: 2rem
 }
+.list-work{
+  padding: .5rem;
+  background-color: dodgerblue;
+  border-radius: .5rem;
+  border: none;
+  color: white;
+  margin: 1rem .5rem;
+  cursor: pointer;
+  text-align: center;
+}
