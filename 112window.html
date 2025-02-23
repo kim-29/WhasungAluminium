@@ -752,7 +752,7 @@
         <h1 class="section-title" style="color:blue">[Total 절단 내역]</h1>
         <ul class="total-cutting-list">
           <li class="title cutting">
-            <span>구분</span><span>형번호</span><span>창틀(너비)<br>/side창문</span><span>창틀(높이)<br>/center창문</span><span>확인</span>
+            <span>구분</span><span>형번호</span><span>색상</span><span>창틀(너비)<br>/side창문</span><span>창틀(높이)<br>/center창문</span><span>확인</span>
           </li>
         </ul>`
       section.classList.add('cutting-container','container')
@@ -762,7 +762,7 @@
       const cutting_lists = cutting_html.querySelectorAll('.cutting')
       cutting_lists.forEach(cutting_list=>{
         if(cutting_list.className!='title cutting'){
-          if(cutting_list.querySelectorAll('span')[3]!=null && cutting_list.querySelectorAll('span')[4]!=null){
+          if(cutting_list.querySelectorAll('span')[3].innerHTML || cutting_list.querySelectorAll('span')[4].innerHTML){
             const clone = cutting_list.cloneNode(true)
             total_cutting.appendChild(clone)  
           }
