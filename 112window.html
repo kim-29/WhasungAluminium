@@ -753,9 +753,13 @@
               })
             })
             if(res.ok){
-              alert('reserved:' + res)
+              alert('데이터베이스에 반영되었습니다.')
+              if (window.opener) {
+                window.opener.location.reload();
+              }
+              window.close()
             }else{
-              alert("error:" + res)
+              alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세")
             }
           })`
       cutting_html.querySelector('body').appendChild(div)
