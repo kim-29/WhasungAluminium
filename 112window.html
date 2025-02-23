@@ -739,7 +739,8 @@
           }
 
           const button = document.querySelector('.weight_send')
-          button.addEventListener('click',async ()=>{
+          button.addEventListener('click',async (event)=>{
+          event.preventDefault()
           const weight = Number(document.querySelector('#last-weight').value)
             const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
               method: "PUT",
@@ -751,6 +752,11 @@
                 weight: weight
               })
             })
+            if(res.ok){
+              alert('reserved:' + res)
+            }else{
+              alert("error:" + res)
+            }
           })`
       cutting_html.querySelector('body').appendChild(div)
       
