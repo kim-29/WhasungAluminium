@@ -762,7 +762,7 @@
       const cutting_lists = cutting_html.querySelectorAll('.cutting')
       cutting_lists.forEach(cutting_list=>{
         if(cutting_list.className!='title cutting'){
-          if(cutting_list.querySelectorAll('span')[3] || cutting_list.querySelectorAll('span')[4]){
+          if(!cutting_list.querySelectorAll('span')[3] && !cutting_list.querySelectorAll('span')[4]){
             const clone = cutting_list.cloneNode(true)
             total_cutting.appendChild(clone)  
           }
