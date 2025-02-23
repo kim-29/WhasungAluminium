@@ -52,7 +52,7 @@
     }
 
     .cutting {
-      grid-template-columns: 1fr 1fr 2fr 2fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 2fr 2fr 1fr;
       border-bottom: 1px solid green;
     }
 
@@ -201,34 +201,34 @@
     <h1 class="section-title">절단 내역</h1>
     <ul class="cutting-list">
       <li class="title cutting">
-        <span>구분</span><span>형번호</span><span>창틀(너비)<br>/side창문</span><span>창틀(높이)<br>/center창문</span><span>확인</span>
+        <span>구분</span><span>형번호</span><span>색상</span><span>창틀(너비)<br>/side창문</span><span>창틀(높이)<br>/center창문</span><span>확인</span>
       </li>
       <li class="frame cutting">
-        <span>창틀</span><span>ns112sl104</span><span></span><span></span><input type="checkbox">
+        <span>창틀</span><span>ns112sl104</span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="window-top cutting">
-        <span>창문(top)</span><span></span><span></span><span></span><input type="checkbox">
+        <span>창문(top)</span><span></span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="window-bottom cutting">
-        <span>창문(bottom)</span><span></span><span></span><span></span><input type="checkbox">
+        <span>창문(bottom)</span><span></span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="window-outside cutting">
-        <span>창문(outside)</span><span></span><span></span><span></span><input type="checkbox">
+        <span>창문(outside)</span><span></span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="window-inside cutting">
-        <span>창문(inside)</span><span></span><span></span><span></span><input type="checkbox">
+        <span>창문(inside)</span><span></span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="window-part cutting">
-        <span>창문부속</span><span>ns112sl701-A</span><span></span><span></span><input type="checkbox">
+        <span>창문부속</span><span>ns112sl701-A</span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="sc8 cutting">
-        <span>방충망 틀</span><span>sc8</span><span></span><span></span><input type="checkbox">
+        <span>방충망 틀</span><span>sc8</span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="sc19 cutting">
-        <span>방충망 틀</span><span>sc19</span><span></span><span></span><input type="checkbox">
+        <span>방충망 틀</span><span>sc19</span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="sc20 cutting">
-        <span>방충망 틀</span><span>sc20</span><span></span><span></span><input type="checkbox">
+        <span>방충망 틀</span><span>sc20</span><span></span><span></span><span></span><input type="checkbox">
       </li>
     </ul>
   </section>
@@ -388,7 +388,7 @@
       cuttings.forEach(cutting => {
         if (cutting.className != "title cutting") {
           elements = cutting.querySelectorAll('span')
-          elements[2].innerHTML = elements[3].innerHTML = ""
+          elements[2].innerHTML = elements[3].innerHTML = elements[4].innerHTML = ""
         }
       })
     }
@@ -622,52 +622,62 @@
 
       /*frame 절단내역*/
       elements = frame_cut.querySelectorAll('span')
-      elements[2].innerHTML = frame_width + "mm X " + 2 * count
-      elements[3].innerHTML = frame_height + "mm X " + 2 * count
+      elements[2].innerHTML = color
+      elements[3].innerHTML = frame_width + "mm X " + 2 * count
+      elements[4].innerHTML = frame_height + "mm X " + 2 * count
 
       /*창문(top_bar) 절단내역*/
       elements = top_cut.querySelectorAll('span')
       elements[1].innerHTML = top_bar
-      elements[2].innerHTML = side_width + "mm X " + (type == 3 ? 2 : type) * count
-      elements[3].innerHTML = type == 3 ? center_width + "mm X " + 1 * count : ""
+      elements[2].innerHTML = color
+      elements[3].innerHTML = side_width + "mm X " + (type == 3 ? 2 : type) * count
+      elements[4].innerHTML = type == 3 ? center_width + "mm X " + 1 * count : ""
 
       /*창문(bottom_bar) 절단내역*/
       elements = bottom_cut.querySelectorAll('span')
       elements[1].innerHTML = bottom_bar
-      elements[2].innerHTML = side_width + "mm X " + (type == 3 ? 2 : type) * count
-      elements[3].innerHTML = type == 3 ? center_width + "mm X " + 1 * count : ""
+      elements[2].innerHTML = color
+      elements[3].innerHTML = side_width + "mm X " + (type == 3 ? 2 : type) * count
+      elements[4].innerHTML = type == 3 ? center_width + "mm X " + 1 * count : ""
 
       /*창문(outside_bar) 절단내역*/
       elements = outside_cut.querySelectorAll('span')
       elements[1].innerHTML = outside_bar
-      elements[2].innerHTML = window_height + "mm X " + outside_bar_count * count
+      elements[2].innerHTML = color
+      elements[3].innerHTML = window_height + "mm X " + outside_bar_count * count
 
       /*창문(inside_bar) 절단내역*/
       elements = inside_cut.querySelectorAll('span')
       elements[1].innerHTML = inside_bar
-      elements[2].innerHTML = window_height + "mm X " + inside_bar_count * count
+      elements[2].innerHTML = color
+      elements[3].innerHTML = window_height + "mm X " + inside_bar_count * count
 
       /*창문부속 절단내역*/
       elements = window_part_cut.querySelectorAll('span')
-      elements[2].innerHTML = type == 4 ? window_height + "mm X " + 1 * count : ""
+      elements[2].innerHTML = color
+      elements[3].innerHTML = type == 4 ? window_height + "mm X " + 1 * count : ""
 
       /*방충망틀 절단내역*/
       switch (screen_frame.value) {
         case "sc-8":
           elements = sc8_cut.querySelectorAll('span')
-          elements[2].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
-          elements[3].innerHTML = screen_height + "mm X " + (type == 2 ? 2 : 4) * count
+          elements[2].innerHTML = color
+          elements[3].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
+          elements[4].innerHTML = screen_height + "mm X " + (type == 2 ? 2 : 4) * count
           break;
         case "sc-19":
           elements = sc19_cut.querySelectorAll('span')
-          elements[2].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
-          elements[3].innerHTML = screen_height + "mm X " + (type == 2 ? 2 : 4) * count
+          elements[2].innerHTML = color
+          elements[3].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
+          elements[4].innerHTML = screen_height + "mm X " + (type == 2 ? 2 : 4) * count
           break;
         case "sc-20":
           elements = sc19_cut.querySelectorAll('span')
-          elements[2].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
+          elements[2].innerHTML = color
+          elements[3].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
           elements = sc20_cut.querySelectorAll('span')
-          elements[3].innerHTML = screen_height + "mm X " + (type == 2 ? 2 : 4) * count
+          elements[2].innerHTML = color
+          elements[4].innerHTML = screen_height + "mm X " + (type == 2 ? 2 : 4) * count
           break;
         case "미설치":
           break;
@@ -682,7 +692,6 @@
       <li class="type">타입(type): <span>${type}짝문</span></li>
       <li class="wide">너비(wide): <span>${width}mm</span></li>
       <li class="height">높이(height): <span>${height}mm</span></li>
-      <li class="color">색상(color): <span>${color}</span></li>
       <li class="tickness">유리두께(tickness): <span>${tickness}</span></li>
       <li class="screen">망충망(screen) 설치: <span>${screen.checked?"설치":"미설치"}</span></li>
       <li class="rain-hole">빗물 홈: <span>${rain_hole.checked?"설치":"미설치"}</span></li>
@@ -703,7 +712,7 @@
       initial()
     })
 
-    /*========cutting detail view=============================*/
+    /*======== 장바구니 내역 보기 =============================*/
     const cutting_view = document.querySelector('.cutting_view')
 
     cutting_view.addEventListener('click', () => {
@@ -753,8 +762,11 @@
       const cutting_lists = cutting_html.querySelectorAll('.cutting')
       cutting_lists.forEach(cutting_list=>{
         if(cutting_list.className!='title cutting'){
-          const clone = cutting_list.cloneNode(true)
-          total_cutting.appendChild(clone)
+          if(cutting_list.querySelectorAll('span')[3] || cutting_list.querySelectorAll('span')[4]){
+            const clone = cutting_list.cloneNode(true)
+            total_cutting.appendChild(clone)  
+          }
+          
         }
       })
       
