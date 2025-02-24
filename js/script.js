@@ -1,6 +1,5 @@
 /*window를 load 할 때 list update 할 수 있도록 수정*/
 
-
 window.addEventListener('load',async ()=>{
   async function getNotionPage() {
     const url = 'https://shrill-hill-66e0.nameofwind.workers.dev';
@@ -63,8 +62,6 @@ window.addEventListener('load',async ()=>{
       }
     })
   })
-  
-    /**/
 })
 
 

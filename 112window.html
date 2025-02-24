@@ -81,7 +81,7 @@
 
 <body>
   <section class="input container">
-    <h1 class="section-title">112mm 슬라이딩 윈도우 견적 계산기</h1>
+    <h1 class="section-title work-title">112mm 슬라이딩 윈도우</h1>
     <form action="" class="input-form grid">
       <label for="type">타입(type):
         <select name="type" id="type">
@@ -127,11 +127,9 @@
       <label for="count">작업수량(count): <input id="count" type="number" value="1"></label>
       <label for="work">제작여부: <input type="checkbox" id="work">(체크하지 않을시 절단작업만 시행합니다.)</label>
       <p>[작업관련 요청사항]</p>
-      <label for="memo"><textarea name="memo" id="memo" cols="65" rows="10" style = "resize:none"></textarea></label>
+      <label for="memo"><textarea name="memo" id="memo" cols="65" rows="5" style="resize:none"></textarea></label>
     </form>
     <button class="button112">견적산출</button>
-    <button class="cart">작업내역 장바구니 담기</button>
-    <button class="cutting_view">작업내역 장바구니 보기</button>
     <button class="send">보내기</button>
   </section>
 
@@ -302,13 +300,6 @@
       },
     }
 
-
-
-
-
-
-
-    /*===main code : 이 코드는 메인 페이지에 들어가야 되는 코드입니다.====*/
 
     let cutting_html = document.createElement('html');
     const style = document.querySelector('style').innerHTML
@@ -544,14 +535,14 @@
         case "sc-20":
           elements = sc19_out.querySelectorAll('span')
           elements[2].innerHTML = book.diesbook["sc-19"]
-          elements[3].innerHTML = (screen_width * (type == 2 ? 2 : 4)+screen_height * (type==4?2:0)) * count
+          elements[3].innerHTML = (screen_width * (type == 2 ? 2 : 4) + screen_height * (type == 4 ? 2 : 0)) * count
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
 
           elements = sc20_out.querySelectorAll('span')
           elements[2].innerHTML = book.diesbook["sc-20"]
-          elements[3].innerHTML = screen_height * (type == 3 ? 4 :2 ) * count
+          elements[3].innerHTML = screen_height * (type == 3 ? 4 : 2) * count
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
@@ -591,18 +582,17 @@
       switch (type) {
         case 2:
           price = 14500 * count;
-          part_price = price
           break;
         case 3:
           price = 20600 * count;
-          part_price = price
           break;
         case 4:
           price = 24200 * count;
-          part_price = price
           break;
       } /*임시값으로 수정 필요*/
       elements[3].innerHTML = price.toLocaleString("en-US")
+
+      part_price = price
       sum = sum + price
 
       /*제작비(인건비) 예상견적가*/
@@ -678,7 +668,7 @@
           elements = sc19_cut.querySelectorAll('span')
           elements[2].innerHTML = color
           elements[3].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
-          elements[4].innerHTML = type==4? screen_height + "mm X" + 2 * count :""
+          elements[4].innerHTML = type == 4 ? screen_height + "mm X" + 2 * count : ""
           elements = sc20_cut.querySelectorAll('span')
           elements[2].innerHTML = color
           elements[4].innerHTML = screen_height + "mm X " + (type == 3 ? 4 : 2) * count
@@ -689,110 +679,30 @@
 
       /*주문내역을 장바구니에 담기 위한 코드입니다.*/
       order_container = `
-  <section class="order-container container">
-    <h1 class="section-title">주문내용</h1>
-    <ul class="order-list">
-      <li class="work">작업구분: <span>${work.checked?"제작작업":"절단작업"}</span></li>
-      <li class="type">타입(type): <span>${type}짝문</span></li>
-      <li class="wide">너비(wide): <span>${width}mm</span></li>
-      <li class="height">높이(height): <span>${height}mm</span></li>
-      <li class="tickness">유리두께(tickness): <span>${tickness}</span></li>
-      <li class="screen">방충망(screen) 설치: <span>${screen.checked?"설치":"미설치"}</span></li>
-      <li class="rain-hole">빗물 홈: <span>${rain_hole.checked?"설치":"미설치"}</span></li>
-      <li class = "memo"><span>작업관련 요청사항:</span><span style="color:red">${memo}</span></li>
-    </ul>
-  </section>`
+        <section class="order-container container">
+          <h1 class="section-title">주문내용</h1>
+          <ul class="order-list">
+            <li class="work">작업구분: <span>${work.checked?"제작작업":"절단작업"}</span></li>
+            <li class="type">타입(type): <span>${type}짝문</span></li>
+            <li class="wide">너비(wide): <span>${width}mm</span></li>
+            <li class="height">높이(height): <span>${height}mm</span></li>
+            <li class="tickness">유리두께(tickness): <span>${tickness}</span></li>
+            <li class="screen">방충망(screen) 설치: <span>${screen.checked?"설치":"미설치"}</span></li>
+            <li class="rain-hole">빗물 홈: <span>${rain_hole.checked?"설치":"미설치"}</span></li>
+            <li class = "memo"><span>작업관련 요청사항:</span><span style="color:red">${memo}</span></li>
+          </ul>
+        </section>`
 
     })
-
-
-
-    /*==============장바구니=====================================*/
-    const cart = document.querySelector('.cart');
-    cart.addEventListener('click', () => {
-      let div = document.createElement('div')
-      const cutting_container = document.querySelector('.cutting-container').outerHTML
-      div.innerHTML = order_container + cutting_container
-      cutting_html.querySelector('body').appendChild(div)
-      initial()
-    })
-
-    /*======== 장바구니 내역 보기 =============================*/
-    const cutting_view = document.querySelector('.cutting_view')
-
-    cutting_view.addEventListener('click', () => {
-      let blob = new Blob([cutting_html.outerHTML], {
-        type: 'text/html'
-      })
-      let url = URL.createObjectURL(blob);
-      let newWindow = window.open(url)
-      console.log(newWindow)
-    })
-
-
 
     /*====== send ==============================*/
 
     const send = document.querySelector('.send');
     send.addEventListener('click', async () => {
-      
-      /*total 절단내역을 포함하여 제공하여야 합니다.
-      전체적인 절단 내역을 담은 section을 만들어서 제공해야 합니다.
-      내용들을 database에 담아 두는 것이 더 좋은 방법입니다만
-      구현하려면 내용이 복잡해 져서 고민 후 작업해야 할 것 같습니다.
-      간단하게는 li 태그들의 값들을 모두 모아 뿌려주는 것이 간단한 방법입니다
-      그것과 관련된 작업은 여기에서 구현하여야 합니다.
-      section을 만들어서 document에 포함하는 작업입니다.
-      아래의 div 태그를 만들어서 document에 포함하는 작업과 동일합니다.
-      - 그러나 그러면 동일한 사이즈에 대해서 합쳐지지는 않습니다.
-      - 크기 순으로 sorting되지도 않습니다.
-      - 다른작업(예를 들어 갤러리와 슬라이딩 도어)을 모두 포함하는 것은 고민해 봐야 합니다.
-      데이터베이스로 구현하는 것은 나중에 불편하면 구현하는 것으로 하지요
-      */
-      
-      
-      /*total cutting list를 만들어 붙입니다. 내역은 형번호로 sorting합니다.*/
-      const section = document.createElement('section')
-      section.innerHTML=`
-        <h1 class="section-title" style="color:blue">[Total 절단 내역]</h1>
-        <ul class="total-cutting-list">
-          <li class="title cutting">
-            <span>구분</span><span>형번호</span><span>색상</span><span>창틀(너비)<br>/side창문</span><span>창틀(높이)<br>/center창문</span><span>확인</span>
-          </li>
-        </ul>`
-      section.classList.add('cutting-container','container')
-      cutting_html.querySelector('body').appendChild(section)
-      
-      const total_cutting = cutting_html.querySelector('.total-cutting-list')
-      const cutting_lists = cutting_html.querySelectorAll('.cutting')
-      cutting_lists.forEach(cutting_list=>{
-        if(cutting_list.className!='title cutting'){
-          if(cutting_list.querySelectorAll('span')[3].innerHTML || cutting_list.querySelectorAll('span')[4].innerHTML){
-            const clone = cutting_list.cloneNode(true)
-            total_cutting.appendChild(clone)  
-          }
-          
-        }
-      })
-      
-      //sort 작업을 합니다. 내용은 ai가 제공한 내용을 활용하여 만들어 잘 모릅니다.
-        var items = Array.from(total_cutting.getElementsByTagName("li"));
-        items.sort(function(a, b) {
-            var aText = a.querySelectorAll("span")[1].textContent;
-            var bText = b.querySelectorAll("span")[1].textContent;
-            return aText.localeCompare(bText);
-        });
-        while (total_cutting.firstChild) {
-            total_cutting.removeChild(total_cutting.firstChild);
-        }
-        items.forEach(function(item) {
-            total_cutting.appendChild(item);
-        });      
-      //end of sort
-      
-      
+
       const div = document.createElement('div')
-      div.innerHTML=`
+      const cutting_container = document.querySelector('.cutting-container').outerHTML
+      const footer_container = `
         <form action="" class="footer">
           <label for="last-weight">
             <input type="number" id="last-weight" placeholder="kg">
@@ -829,8 +739,10 @@
               alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
             }
           })`
+      div.innerHTML = order_container + cutting_container + footer_container
+
       cutting_html.querySelector('body').appendChild(div)
-      
+
       const client_name = prompt('거래처명을 입력하세요:');
       const now = new Date();
       const worklist_url_key = now.toISOString()
@@ -844,7 +756,7 @@
         },
         body: JSON.stringify({
           client: client_name,
-          order: work.checked ? '제작' : '절단',
+          order: work.checked ? '제작 작업' : '절단 작업',
           color: color,
           part_price: work.checked ? part_price : 0,
           worklist: worklist_url_key,
@@ -858,8 +770,6 @@
         const errorText = await res.text();
         console.log('post error', res.statusText, errorText)
       }
-      
-      
     });
 
     function blobToBase64(blob) {
