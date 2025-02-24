@@ -81,7 +81,7 @@
 
 <body>
   <section class="input container">
-    <h1 class="section-title work-title">112mm 슬라이딩 윈도우</h1>
+    <h1 class="section-title work-title">88mm 슬라이딩 윈도우</h1>
     <form action="" class="input-form grid">
       <label for="type">타입(type):
         <select name="type" id="type">
@@ -105,15 +105,17 @@
         <select name="tickness" id="tickness">
           <option value="8mm">8mm</option>
           <option value="16mm">16mm</option>
-          <option value="20mm">20mm</option>
+<!--          <option value="20mm">20mm</option>-->
         </select>
       </label>
+<!--
       <label for="tickness-16">*16mm 선택사항:
         <select name="tickness-16" id="tickness-16">
           <option value="ns112sl602">ns112sl602(크기:128mm)</option>
           <option value="ns112sl603">ns112sl603(크기:100mm)</option>
         </select>
       </label>
+-->
       <label for="screen-frame">방충망 틀(screen frame):
         <select name="screen-frame" id="screen-frame">
           <option value="미설치">미설치</option>
@@ -129,7 +131,7 @@
       <p>[작업관련 요청사항]</p>
       <label for="memo"><textarea name="memo" id="memo" cols="65" rows="5" style="resize:none"></textarea></label>
     </form>
-    <button class="button112">견적산출</button>
+    <button class="button88">견적산출</button>
     <button class="send">보내기</button>
   </section>
 
@@ -140,7 +142,7 @@
         <span>구분</span><span>형번호</span><span>단위무게(kg/m)</span><span>길이(mm)</span><span>무게(kg)</span>
       </li>
       <li class="frame result">
-        <span>창틀</span><span>ns112sl104</span><span></span><span></span><span></span>
+        <span>창틀</span><span>ns88sl114</span><span></span><span></span><span></span>
       </li>
       <li class="window-top result">
         <span>창문(top)</span><span></span><span></span><span></span><span></span>
@@ -204,7 +206,7 @@
         <span>구분</span><span>형번호</span><span>색상</span><span>창틀(너비)<br>/side창문</span><span>창틀(높이)<br>/center창문</span><span>확인</span>
       </li>
       <li class="frame cutting">
-        <span>창틀</span><span>ns112sl104</span><span></span><span></span><span></span><input type="checkbox">
+        <span>창틀</span><span>ns88sl114</span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="window-top cutting">
         <span>창문(top)</span><span></span><span></span><span></span><span></span><input type="checkbox">
@@ -294,9 +296,9 @@
         "project-parts": [115, 145],
       },
       "glassbook": {
-        "8mm": ["ns112sl401", "ns112sl604", "ns112sl701", "ns112sl801"],
-        "16mm": ['ns112sl403', 'ns112sl602', 'ns112sl702', 'ns112sl802'],
-        "20mm": ['ns112sl404', 'ns112sl607', 'ns112sl707', 'ns112sl807'],
+        "8mm": ["ns88sl401", "ns88sl601", "ns88sl701", "ns88sl801"],
+        "16mm": ['ns88sl403', 'ns88sl603', 'ns88sl703', 'ns88sl803'],
+//        "20mm": ['ns112sl404', 'ns112sl607', 'ns112sl707', 'ns112sl807'],
       },
     }
 
@@ -308,7 +310,7 @@
   <html lang="ko">
   <head>
     <meta charset="UTF-8">
-    <title>112mm slide window File</title>
+    <title>88mm slide window File</title>
     <style>${style}</style>
   </head>
   <body>
@@ -391,7 +393,7 @@
 
 
     /*=========예상 견적가 및 절단내역=====================*/
-    const result_button = document.querySelector('.button112')
+    const result_button = document.querySelector('.button88')
     result_button.addEventListener('click', () => {
 
       initial() /*초기화*/
@@ -405,7 +407,7 @@
       height = Number(document.querySelector('#height').value)
       color = document.querySelector('#color').value
       tickness = document.querySelector('#tickness').value
-      tickness_16 = document.querySelector('#tickness-16').value
+//      tickness_16 = document.querySelector('#tickness-16').value
       screen_frame = document.querySelector('#screen-frame')
       count = Number(document.querySelector('#count').value)
       screen = document.querySelector('#screen')
@@ -414,7 +416,7 @@
       memo = document.querySelector('#memo').value
 
       const top_bar = book.glassbook[tickness][0]
-      const bottom_bar = tickness == "16mm" ? tickness_16 : book.glassbook[tickness][1]
+      const bottom_bar = book.glassbook[tickness][1]
       const outside_bar = book.glassbook[tickness][2]
       const inside_bar = book.glassbook[tickness][3]
 
@@ -430,34 +432,34 @@
 
       switch (type) {
         case 2:
-          side_width = (width - book.tolerancebook.window112[0]) / 2
+          side_width = (width - book.tolerancebook.window88[0]) / 2
           center_width = 0
           window_width = side_width * 2
           outside_bar_count = 2
           inside_bar_count = 2
           window_part_count = 0
           screen_frame_count = 1
-          screen_width = width / 2 + 7
+          screen_width = width / 2 - 2
           break
         case 3:
-          side_width = (width - book.tolerancebook.window112[1]) / 4
+          side_width = (width - book.tolerancebook.window88[1]) / 4
           center_width = side_width * 2
           window_width = side_width * 2 + center_width
           outside_bar_count = 2
           inside_bar_count = 4
           window_part_count = 0
           screen_frame_count = 2
-          screen_width = side_width + 94
+          screen_width = side_width + 86
           break
         case 4:
-          side_width = (width - book.tolerancebook.window112[2]) / 4
+          side_width = (width - book.tolerancebook.window88[2]) / 4
           center_width = 0
           window_width = side_width * 4
           outside_bar_count = 4
           inside_bar_count = 4
           window_part_count = 1
           screen_frame_count = 2
-          screen_width = width / 4 + 11
+          screen_width = width / 4 - 5
           break;
       }
 
@@ -581,13 +583,13 @@
       elements = product_parts.querySelectorAll('span')
       switch (type) {
         case 2:
-          price = 14500 * count;
+          price = 10300 * count;
           break;
         case 3:
-          price = 20600 * count;
+          price = 14200 * count;
           break;
         case 4:
-          price = 24200 * count;
+          price = 16600 * count;
           break;
       } /*임시값으로 수정 필요*/
       elements[3].innerHTML = price.toLocaleString("en-US")
