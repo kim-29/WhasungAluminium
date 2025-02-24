@@ -459,7 +459,7 @@
           side_width = (width - book.tolerancebook.window112[2]) / 4
           center_width = 0
           window_width = side_width * 4
-          outside_bar_count = 2
+          outside_bar_count = 4
           inside_bar_count = 4
           window_part_count = 1
           screen_frame_count = 2
@@ -541,14 +541,14 @@
         case "sc-20":
           elements = sc19_out.querySelectorAll('span')
           elements[2].innerHTML = book.diesbook["sc-19"]
-          elements[3].innerHTML = screen_width * (type == 2 ? 2 : 4) * count
+          elements[3].innerHTML = (screen_width * (type == 2 ? 2 : 4)+screen_height * (type==4?2:0)) * count
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
 
           elements = sc20_out.querySelectorAll('span')
           elements[2].innerHTML = book.diesbook["sc-20"]
-          elements[3].innerHTML = screen_height * (type == 2 ? 2 : 4) * count
+          elements[3].innerHTML = screen_height * (type == 3 ? 4 :2 ) * count
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
@@ -605,8 +605,8 @@
       /*제작비(인건비) 예상견적가*/
       elements = production_cost.querySelectorAll('span')
       elements[1].innerHTML = weight_sum.toLocaleString("en-US")
-      elements[2].innerHTML = Number(25000).toLocaleString("en-US")
-      price = Math.ceil(weight_sum * 25000)
+      elements[2].innerHTML = Number(2500).toLocaleString("en-US")
+      price = Math.ceil(weight_sum * 2500)
       elements[3].innerHTML = price.toLocaleString("en-US")
       sum = sum + price
 
@@ -675,9 +675,10 @@
           elements = sc19_cut.querySelectorAll('span')
           elements[2].innerHTML = color
           elements[3].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
+          elements[4].innerHTML = type==4? screen_height + "mm X" + 2 * count :""
           elements = sc20_cut.querySelectorAll('span')
           elements[2].innerHTML = color
-          elements[4].innerHTML = screen_height + "mm X " + (type == 2 ? 2 : 4) * count
+          elements[4].innerHTML = screen_height + "mm X " + (type == 3 ? 4 : 2) * count
           break;
         case "미설치":
           break;
