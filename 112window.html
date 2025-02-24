@@ -126,7 +126,7 @@
       <label for="rain-hole">빗물 홈: <input type="checkbox" id="rain-hole"></label>
       <label for="count">작업수량(count): <input id="count" type="number" value="1"></label>
       <label for="work">제작여부: <input type="checkbox" id="work">(체크하지 않을시 절단작업만 시행합니다.)</label>
-      <p>[작업관련 중요메모]</p>
+      <p>[작업관련 요청사항]</p>
       <label for="memo"><textarea name="memo" id="memo" cols="65" rows="10" style = "resize:none"></textarea></label>
     </form>
     <button class="button112">견적산출</button>
@@ -699,7 +699,7 @@
       <li class="tickness">유리두께(tickness): <span>${tickness}</span></li>
       <li class="screen">방충망(screen) 설치: <span>${screen.checked?"설치":"미설치"}</span></li>
       <li class="rain-hole">빗물 홈: <span>${rain_hole.checked?"설치":"미설치"}</span></li>
-      <li class = "memo"><span style="color:red">${memo}</span></li>
+      <li class = "memo"><span>작업관련 요청사항:</span><span style="color:red">${memo}</span></li>
     </ul>
   </section>`
 
