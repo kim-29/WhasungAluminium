@@ -324,7 +324,7 @@
 
 
     /*=========변수설정=====================*/
-
+    const work_title = document.querySelector('.work-title').textContent
     const frame_out = document.querySelector('.frame.result')
     const top_out = document.querySelector('.window-top.result')
     const bottom_out = document.querySelector('.window-bottom.result')
@@ -637,18 +637,18 @@
       elements = outside_cut.querySelectorAll('span')
       elements[1].innerHTML = outside_bar
       elements[2].innerHTML = color
-      elements[3].innerHTML = window_height + "mm X " + outside_bar_count * count
+      elements[4].innerHTML = window_height + "mm X " + outside_bar_count * count
 
       /*창문(inside_bar) 절단내역*/
       elements = inside_cut.querySelectorAll('span')
       elements[1].innerHTML = inside_bar
       elements[2].innerHTML = color
-      elements[3].innerHTML = window_height + "mm X " + inside_bar_count * count
+      elements[4].innerHTML = window_height + "mm X " + inside_bar_count * count
 
       /*창문부속 절단내역*/
       elements = window_part_cut.querySelectorAll('span')
       elements[2].innerHTML = color
-      elements[3].innerHTML = type == 4 ? window_height + "mm X " + 1 * count : ""
+      elements[4].innerHTML = type == 4 ? window_height + "mm X " + 1 * count : ""
 
       /*방충망틀 절단내역*/
       switch (screen_frame.value) {
@@ -682,6 +682,7 @@
         <section class="order-container container">
           <h1 class="section-title">주문내용</h1>
           <ul class="order-list">
+            <li class="work-title"><span>${work_title}<span><li>
             <li class="work">작업구분: <span>${work.checked?"제작작업":"절단작업"}</span></li>
             <li class="type">타입(type): <span>${type}짝문</span></li>
             <li class="wide">너비(wide): <span>${width}mm</span></li>
@@ -756,6 +757,7 @@
         },
         body: JSON.stringify({
           client: client_name,
+          work_title:work_title,
           order: work.checked ? '제작 작업' : '절단 작업',
           color: color,
           part_price: work.checked ? part_price : 0,
