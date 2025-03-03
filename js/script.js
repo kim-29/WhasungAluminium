@@ -34,18 +34,17 @@ window.addEventListener('load',async ()=>{
       <span>${result.properties.work_title.rich_text[0].text.content}</span>
       <span><button class="list-work" data-page="${result.id}" data-key="${result.properties.worklist.url}">${result.properties.order.select.name}</button></span>
       <span class="list-status" style= "color: ${result.properties.status.status.color}"> ${result.properties.status.status.name}</span>
-      <span class="request-day">${new Date(result.properties["request day"].created_time).toLocaleDateString('ko-KR')}</span>
       <span><label for="date"><input type="date" id="date" name="date"></label></span>
       <span>${result.properties.weight.number?result.properties.weight.number+'kg':''}</span>
       <span>${result.properties.price.formula.number?(result.properties.price.formula.number).toLocaleString('en-US')+'원':''}</span>
-      <span> /*결재여부*/
+      <span>
         <label for="payment">
           <select id="payment" name="payment">
               <option value="결재전">결재전</option>
               <option value="결재완료">결재완료</option>
               <option value="외상">외상</option>
         </label>
-      </span> 
+      </span>
       <span><button style="background-color:red">삭제</button></span> /*삭제버튼*/`;
     li.classList.add('list', 'grid');
     list_ul.appendChild(li);
@@ -71,7 +70,6 @@ window.addEventListener('load',async ()=>{
         newWindow.onload = function() {
           newWindow.getValue(pageId,order)
         };
-        
       } else {
         console.error('failed to load kv html document:', res.status);
       }
