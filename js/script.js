@@ -37,15 +37,15 @@ window.addEventListener('load',async ()=>{
       <span><label for="date"><input type="date" id="date" name="date"></label></span>
       <span>${result.properties.weight.number?result.properties.weight.number+'kg':''}</span>
       <span>${result.properties.price.formula.number?(result.properties.price.formula.number).toLocaleString('en-US')+'원':''}</span>
-      <span>
-        <label for="payment">
-          <select id="payment" name="payment">
-            <option value="결재전">결재전</option>
-            <option value="결재완료">결재완료</option>
-            <option value="외상">외상</option>
-          </select>
-        </label>
-      </span>
+
+      <label for="payment">
+        <select id="payment" name="payment">
+          <option value="결재전">결재전</option>
+          <option value="결재완료">결재완료</option>
+          <option value="외상">외상</option>
+        </select>
+      </label>
+
       <span><button style="background-color:red">삭제</button></span> /*삭제버튼*/`;
     li.classList.add('list', 'grid');
     list_ul.appendChild(li);
