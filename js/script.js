@@ -50,14 +50,12 @@ window.addEventListener('load',async ()=>{
     list_work.addEventListener('click',async function(){
       const url_key = "https://shrill-hill-66e0.nameofwind.workers.dev/"+this.getAttribute('data-key');
       const pageId = this.getAttribute('data-page')
-      console.log(pageId)
+      console.log(pageId,order)
       const res = await fetch(url_key);
       if (res.ok) {
         const htmlText = await res.text();
         const newWindow = window.open();
-        console.log(htmlText)
         newWindow.document.write(htmlText);
-
         newWindow.document.close();
         newWindow.onload = function() {
           newWindow.getValue(pageId,order)
