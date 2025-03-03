@@ -46,7 +46,7 @@ window.addEventListener('load',async ()=>{
         </select>
       </label>
 
-      <span><button style="background-color:red">삭제</button></span> /*삭제버튼*/`;
+      <span><button style="background-color:red;color:white">삭제</button></span>`;
     li.classList.add('list', 'grid');
     list_ul.appendChild(li);
     /*li에 이벤트리스너 삽입*/
