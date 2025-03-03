@@ -23,9 +23,11 @@ window.addEventListener('load',async ()=>{
   const data = await getNotionPage();
   console.log(data);
   
+  let order;
   const list_ul = document.querySelector('.lists');
   for (let i = 0; i < 20 && i < data.results.length; i++) {
     const result = data.results[i];
+    order = result.properties.order.select.name
     const li = document.createElement('li');
     li.innerHTML = `
       <span>${result.properties.clients.title[0].text.content}</span>
@@ -53,11 +55,14 @@ window.addEventListener('load',async ()=>{
       if (res.ok) {
         const htmlText = await res.text();
         const newWindow = window.open();
+        console.log(htmlText)
         newWindow.document.write(htmlText);
+
         newWindow.document.close();
         newWindow.onload = function() {
-          newWindow.getValue(pageId)
+          newWindow.getValue(pageId,order)
         };
+        
       } else {
         console.error('failed to load kv html document:', res.status);
       }
