@@ -27,7 +27,9 @@ window.addEventListener('load',async ()=>{
   const list_ul = document.querySelector('.lists');
   for (let i = 0; i < 20 && i < data.results.length; i++) {
     const result = data.results[i];
-    console.log(result.properties.limit_day.date.start,result.properties.payment.select.name)
+    console.log(result.properties.limit_day.date.start);
+		console.log(result.properties.payment.select.name)
+			
     const li = document.createElement('li');
     li.innerHTML = `
       <span>${result.properties.clients.title[0].text.content}</span>
