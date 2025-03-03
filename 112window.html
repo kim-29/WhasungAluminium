@@ -720,52 +720,53 @@
           /*절단완료 버튼 클릭시*/
           const cut_button = document.querySelector('.weight_send')
           cut_button.addEventListener('click',async (event)=>{
-          event.preventDefault()
-          const weight = Number(document.querySelector('#last-weight').value)
-          const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              pageId: pageId,
-              weight: weight,
-              button_name:cut_button.textContent
+            event.preventDefault()
+            const weight = Number(document.querySelector('#last-weight').value)
+            const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                pageId: pageId,
+                weight: weight,
+                button_name:cut_button.textContent
+              })
             })
-          })
-          if(res.ok){
-            alert('데이터베이스에 반영되었습니다.')
-            if (window.opener) {
-              window.opener.location.reload();
+            if(res.ok){
+              alert('데이터베이스에 반영되었습니다.')
+              if (window.opener) {
+                window.opener.location.reload();
+              }
+              window.close()
+            }else{
+              alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
             }
-            window.close()
-          }else{
-            alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
-          }
+          })
             
           /*제작완료 버튼 클릭시*/
           const work_button = document.querySelector('.work_send')
           work_button.addEventListener('click',async (event)=>{
-          event.preventDefault()
-          const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              pageId: pageId,
-              button_name:work_button.textContent
+            event.preventDefault()
+            const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                pageId: pageId,
+                button_name:work_button.textContent
+              })
             })
-          })
-          if(res.ok){
-            alert('데이터베이스에 반영되었습니다.')
-            if (window.opener) {
-              window.opener.location.reload();
+            if(res.ok){
+              alert('데이터베이스에 반영되었습니다.')
+              if (window.opener) {
+                window.opener.location.reload();
+              }
+              window.close()
+            }else{
+              alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
             }
-            window.close()
-          }else{
-            alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
-          }
           })`
       div.innerHTML = order_container + cutting_container + footer_container
 
