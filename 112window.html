@@ -712,9 +712,10 @@
           <button class="work_send button">제작완료</button>
         </form>
         <script>
-          let pageId
-          function getValue(data){
+          let pageId,order
+          function getValue(data,order_data){
             pageId = data
+            order = order_data
           }
           
           /*절단완료 버튼 클릭시*/
@@ -749,25 +750,29 @@
           const work_button = document.querySelector('.work_send')
           work_button.addEventListener('click',async (event)=>{
             event.preventDefault()
-            const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                pageId: pageId,
-                button_name:work_button.textContent
+            if(order=="제작 작업"){
+              const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  pageId: pageId,
+                  button_name:work_button.textContent
+                })
               })
-            })
-            if(res.ok){
-              alert('데이터베이스에 반영되었습니다.')
-              if (window.opener) {
-                window.opener.location.reload();
+              if(res.ok){
+                alert('데이터베이스에 반영되었습니다.')
+                if (window.opener) {
+                  window.opener.location.reload();
+                }
+                window.close()
+              }else{
+                alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+                console.log(res)
               }
-              window.close()
             }else{
-              alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
-              console.log(res)
+              alert("절단작업은 제작완료 버튼을 사용할 수 없습니다.")
             }
           })`
       div.innerHTML = order_container + cutting_container + footer_container
