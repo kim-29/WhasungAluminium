@@ -752,7 +752,7 @@
           work_button.addEventListener('click',async (event)=>{
             event.preventDefault()
             console.log(pageId,order)
-            if(order=="제작 작업"){
+            if(order=="제작 작업"||order=="제작 작업 "){
               const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
                 method: "PUT",
                 headers: {
