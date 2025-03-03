@@ -41,9 +41,9 @@ window.addEventListener('load',async ()=>{
 
       <label for="payment">
         <select id="payment" name="payment">
-          <option value="결재전" ${result.properties.payment.select.name === "결재전" ? "selected" : ""}>결재전</option>
-          <option value="결재완료" ${result.properties.payment.select.name === "결재완료" ? "selected" : ""}>결재완료</option>
-          <option value="외상" ${result.properties.payment.select.name === "외상" ? "selected" : ""}>외상</option>
+					<option value="결재전" ${result.properties.payment.select.name === "결재전" ? "selected" : ""}>결재전</option>
+					<option value="결재완료" ${result.properties.payment.select.name === "결재완료" ? "selected" : ""}>결재완료</option>
+					<option value="외상" ${result.properties.payment.select.name === "외상" ? "selected" : ""}>외상</option>
         </select>
       </label>
 
