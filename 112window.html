@@ -717,11 +717,12 @@
             pageId = data
             order = order_data
           }
-          console.log(pageId,order)
+          
           /*절단완료 버튼 클릭시*/
           const cut_button = document.querySelector('.weight_send')
           cut_button.addEventListener('click',async (event)=>{
             event.preventDefault()
+            console.log(pageId,order)
             const weight = Number(document.querySelector('#last-weight').value)
             const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
               method: "PUT",
@@ -750,6 +751,7 @@
           const work_button = document.querySelector('.work_send')
           work_button.addEventListener('click',async (event)=>{
             event.preventDefault()
+            console.log(pageId,order)
             if(order=="제작 작업"){
               const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
                 method: "PUT",
