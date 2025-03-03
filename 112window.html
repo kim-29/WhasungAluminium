@@ -725,7 +725,7 @@
             console.log(pageId,order)
             const weight = Number(document.querySelector('#last-weight').value)
             console.log(weight);
-            if(weight!=null||weight!=0||weight!='0'){
+            if(weight!=null && weight!=0 && weight!='0'){
               const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
                 method: "PUT",
                 headers: {
