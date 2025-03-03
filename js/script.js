@@ -32,7 +32,7 @@ window.addEventListener('load',async ()=>{
     li.innerHTML = `
       <span>${result.properties.clients.title[0].text.content}</span>
       <span>${result.properties.work_title.rich_text[0].text.content}</span>
-      <span><button class="list-work" data-page="${result.id}" data-key="${result.properties.worklist.url}">${result.properties.order.select.name} </button></span>
+      <span><button class="list-work" data-page="${result.id}" data-key="${result.properties.worklist.url}">${result.properties.order.select.name}</button></span>
       <span class="list-status" style= "color: ${result.properties.status.status.color}"> ${result.properties.status.status.name}</span>
       <span class="request-day">${new Date(result.properties["request day"].created_time).toLocaleDateString('ko-KR')}</span>
       <span>${result.properties.weight.number?result.properties.weight.number+'kg':''}</span>
