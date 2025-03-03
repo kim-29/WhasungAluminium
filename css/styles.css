@@ -12,6 +12,7 @@ body {
 }
 .container{
   margin:3rem;
+	
 }
 .grid{
   display: grid;
@@ -35,6 +36,9 @@ a{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.lists{
+	width: 100%;
 }
 .list{
   grid-template-columns: repeat(9,1fr);
