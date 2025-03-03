@@ -802,6 +802,8 @@
           work_title:work_title,
           order: work.checked ? '제작 작업' : '절단 작업',
           color: color,
+					limit: now.toISOString().split('T')[0],
+					payment:"결재전",
           part_price: work.checked ? part_price : 0,
           worklist: worklist_url_key,
           content: await blobToBase64(blob)
