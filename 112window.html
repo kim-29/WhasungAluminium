@@ -718,8 +718,8 @@
           }
           
           /*절단완료 버튼 클릭시*/
-          const button = document.querySelector('.weight_send')
-          button.addEventListener('click',async (event)=>{
+          const cut_button = document.querySelector('.weight_send')
+          cut_button.addEventListener('click',async (event)=>{
           event.preventDefault()
           const weight = Number(document.querySelector('#last-weight').value)
           const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
@@ -730,7 +730,7 @@
             body: JSON.stringify({
               pageId: pageId,
               weight: weight,
-              button_name:button.textContent
+              button_name:cut_button.textContent
             })
           })
           if(res.ok){
@@ -744,8 +744,8 @@
           }
             
           /*제작완료 버튼 클릭시*/
-          const button = document.querySelector('.work_send')
-          button.addEventListener('click',async (event)=>{
+          const work_button = document.querySelector('.work_send')
+          work_button.addEventListener('click',async (event)=>{
           event.preventDefault()
           const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
             method: "PUT",
@@ -754,7 +754,7 @@
             },
             body: JSON.stringify({
               pageId: pageId,
-              button_name:button.textContent
+              button_name:work_button.textContent
             })
           })
           if(res.ok){
