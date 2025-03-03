@@ -40,9 +40,10 @@ window.addEventListener('load',async ()=>{
       <span>
         <label for="payment">
           <select id="payment" name="payment">
-              <option value="결재전">결재전</option>
-              <option value="결재완료">결재완료</option>
-              <option value="외상">외상</option>
+            <option value="결재전">결재전</option>
+            <option value="결재완료">결재완료</option>
+            <option value="외상">외상</option>
+          </select>
         </label>
       </span>
       <span><button style="background-color:red">삭제</button></span> /*삭제버튼*/`;
