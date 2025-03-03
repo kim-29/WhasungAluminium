@@ -706,10 +706,10 @@
       const footer_container = `
         <form action="" class="footer">
           <label for="last-weight">
-            <input type="number" id="last-weight" placeholder="kg">  
+            <input type="number" id="last-weight" placeholder="kg"> 
+            <button class="weight_send button">절단완료</button>
+            <button class="work_send button">제작완료</button>
           </label>
-          <button class="weight_send button" type="button">절단완료</button>
-          <button class="work_send button" type="button">제작완료</button>
         </form>
         <script>
           let pageId
@@ -766,8 +766,7 @@
           }else{
             alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
           }
-          })
-        <\/script>`
+          })`
       div.innerHTML = order_container + cutting_container + footer_container
 
       cutting_html.querySelector('body').appendChild(div)
