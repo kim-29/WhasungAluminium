@@ -34,7 +34,7 @@ window.addEventListener('load',async ()=>{
       <span>${result.properties.work_title.rich_text[0].text.content}</span>
       <span><button class="list-work" data-page="${result.id}" data-key="${result.properties.worklist.url}">${result.properties.order.select.name}</button></span>
       <span class="list-status" style= "color: ${result.properties.status.status.color}"> ${result.properties.status.status.name}</span>
-      <span><label for="date"><input type="date" id="date" name="date" value="${result.properties.limite_day.date.start}"></label></span>
+      <span><label for="date"><input type="date" id="date" name="date" value="${result.properties.limit_day.date.start}"></label></span>
       <span>${result.properties.weight.number?result.properties.weight.number+'kg':''}</span>
       <span>${result.properties.price.formula.number?(result.properties.price.formula.number).toLocaleString('en-US')+'원':''}</span>
 
