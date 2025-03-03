@@ -27,8 +27,7 @@ window.addEventListener('load',async ()=>{
   const list_ul = document.querySelector('.lists');
   for (let i = 0; i < 20 && i < data.results.length; i++) {
     const result = data.results[i];
-    console.log(result.properties.limit_day.date.start);
-		console.log(result.properties.payment.select.name)
+
 			
     const li = document.createElement('li');
     li.innerHTML = `
@@ -41,10 +40,10 @@ window.addEventListener('load',async ()=>{
       <span>${result.properties.price.formula.number?(result.properties.price.formula.number).toLocaleString('en-US')+'원':''}</span>
 
       <label for="payment">
-        <select id="payment" name="payment" value="${result.properties.payment.select.name}">
-          <option value="결재전">결재전</option>
-          <option value="결재완료">결재완료</option>
-          <option value="외상">외상</option>
+        <select id="payment" name="payment">
+          <option value="결재전"${result.properties.payment.select.name === "결재전" ? "selected" : "">결재전</option>
+          <option value="결재완료"${result.properties.payment.select.name === "결재완료" ? "selected" : "">결재완료</option>
+          <option value="외상"${result.properties.payment.select.name === "외상" ? "selected" : "">외상</option>
         </select>
       </label>
 
