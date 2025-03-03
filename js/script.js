@@ -23,16 +23,16 @@ window.addEventListener('load',async ()=>{
   const data = await getNotionPage();
   console.log(data);
   
-  let order;
+  
   const list_ul = document.querySelector('.lists');
   for (let i = 0; i < 20 && i < data.results.length; i++) {
     const result = data.results[i];
-    order = result.properties.order.select.name
+    
     const li = document.createElement('li');
     li.innerHTML = `
       <span>${result.properties.clients.title[0].text.content}</span>
       <span>${result.properties.work_title.rich_text[0].text.content}</span>
-      <span><button class="list-work" data-page="${result.id}" data-key="${result.properties.worklist.url}">${result.properties.order.select.name}</button></span>
+      <span><button class="list-work" data-page="${result.id}" data-key="${result.properties.worklist.url}">${result.properties.order.select.name} data-order="${result.properties.order.select.name}"</button></span>
       <span class="list-status" style= "color: ${result.properties.status.status.color}"> ${result.properties.status.status.name}</span>
       <span class="request-day">${new Date(result.properties["request day"].created_time).toLocaleDateString('ko-KR')}</span>
       <span>${result.properties.weight.number?result.properties.weight.number+'kg':''}</span>
@@ -50,7 +50,7 @@ window.addEventListener('load',async ()=>{
     list_work.addEventListener('click',async function(){
       const url_key = "https://shrill-hill-66e0.nameofwind.workers.dev/"+this.getAttribute('data-key');
       const pageId = this.getAttribute('data-page')
-      console.log(pageId,order)
+      console.log(pageId,this.getAttribute('data-order'))
       const res = await fetch(url_key);
       if (res.ok) {
         const htmlText = await res.text();
@@ -58,7 +58,7 @@ window.addEventListener('load',async ()=>{
         newWindow.document.write(htmlText);
         newWindow.document.close();
         newWindow.onload = function() {
-          newWindow.getValue(pageId,order)
+          newWindow.getValue(pageId,this.getAttribute('data-order'))
         };
         
       } else {
