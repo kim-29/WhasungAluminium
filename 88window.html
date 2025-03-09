@@ -287,18 +287,28 @@
       },
       "tolerancebook": {
         /*슬라이딩 윈도우 공차 : [2짝문 너비공차, 3짝문 너비공차, 4짝문 너비공차, 높이공차]*/
-        "window112": [175, 192, 292, 68],
-//        "screen112": [-7, 20, -11, 55],
-        "window88": [147, 156, 235, 68],
-//        "screen88": [2, 20, 5, 55],
+        "window112": [-175, -192, -292, -68],
+        "screen112": [7, 94, 11, -55],
+        "window88": [-147, -156, -235, -68],
+        "screen88": [-2, 86, -5, -55],
         /*프로젝트 윈도우 공차 : [너비공차,높이공차]*/
-        "project45": [36, 36],
+        "project45": [-36, -36],
+				
         "project-parts": [115, 145],
       },
-      "glassbook": {
-        "8mm": ["ns88sl401", "ns88sl601", "ns88sl701", "ns88sl801"],
+      "glassbook112": {
+        "8mm": ["ns112sl401", "ns112sl604", "ns112sl701", "ns112sl801"],
+        "16mm": ['ns112sl403', 'ns112sl602', 'ns112sl702', 'ns112sl802'],
+        "20mm": ['ns112sl404', 'ns112sl607', 'ns112sl707', 'ns112sl807'],
+      },
+			"glassbook88":{
+				"8mm": ["ns88sl401", "ns88sl601", "ns88sl701", "ns88sl801"],
         "16mm": ['ns88sl403', 'ns88sl603', 'ns88sl703', 'ns88sl803'],
-//        "20mm": ['ns112sl404', 'ns112sl607', 'ns112sl707', 'ns112sl807'],
+			},
+			"glassbook45": {
+        "8mm": ["1110"],
+        "16mm": ['116'],
+        "20mm": ['116-1'],
       },
     }
 
@@ -357,7 +367,7 @@
     let type, width, height, color, tickness, tickness_16, screen_frame, count, screen, rain_hole, memo
     let order_container
     let part_price = 0;
-
+		let bar_data =[]
 
 
     /*=========초기화=====================*/
@@ -415,15 +425,19 @@
       work = document.querySelector('#work')
       memo = document.querySelector('#memo').value
 
-      const top_bar = book.glassbook[tickness][0]
-      const bottom_bar = book.glassbook[tickness][1]
-      const outside_bar = book.glassbook[tickness][2]
-      const inside_bar = book.glassbook[tickness][3]
+			
+			
+/*===== window 공차로 인한 변수 setting start ============================*/	
+			
+      const top_bar = book.glassbook88[tickness][0]
+      const bottom_bar = book.glassbook88[tickness][1]
+      const outside_bar = book.glassbook88[tickness][2]
+      const inside_bar = book.glassbook88[tickness][3]
 
       const frame_width = width
       const frame_height = height
-      const window_height = height - book.tolerancebook.window112[3]
-      const screen_height = height - 55
+      const window_height = height + book.tolerancebook.window88[3]
+      const screen_height = height + book.tolerancebook.screen88[3]
 
       let side_width, center_width, outside_bar_count, inside_bar_count
       let sindow_part_count, screen_frame_count, screen_width
@@ -432,24 +446,24 @@
 
       switch (type) {
         case 2:
-          side_width = (width - book.tolerancebook.window88[0]) / 2
+          side_width = (width + book.tolerancebook.window88[0]) / 2
           center_width = 0
           window_width = side_width * 2
           outside_bar_count = 2
           inside_bar_count = 2
           window_part_count = 0
           screen_frame_count = 1
-          screen_width = width / 2 - 2
+          screen_width = width / 2+book.tolerancebook.screen88[0]
           break
         case 3:
-          side_width = (width - book.tolerancebook.window88[1]) / 4
+          side_width = (width + book.tolerancebook.window88[1]) / 4
           center_width = side_width * 2
           window_width = side_width * 2 + center_width
           outside_bar_count = 2
           inside_bar_count = 4
           window_part_count = 0
           screen_frame_count = 2
-          screen_width = side_width + 86
+          screen_width = side_width + book.tolerancebook.screen88[1]
           break
         case 4:
           side_width = (width - book.tolerancebook.window88[2]) / 4
@@ -459,10 +473,10 @@
           inside_bar_count = 4
           window_part_count = 1
           screen_frame_count = 2
-          screen_width = width / 4 - 5
+          screen_width = width / 4 + book.tolerancebook.screen88[2]
           break;
       }
-
+/*===== window 공차로 인한 변수 setting end ============================*/	
 
 
       /*frame 자재현황*/
@@ -472,7 +486,8 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
-
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			
       /*창문(top_bar) 자재현황*/
       elements = top_out.querySelectorAll('span')
       elements[1].innerHTML = top_bar;
@@ -481,7 +496,8 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
-
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			
       /*창문(bottom_bar) 자재현황*/
       elements = bottom_out.querySelectorAll('span')
       elements[1].innerHTML = bottom_bar;
@@ -490,7 +506,8 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
-
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			
       /*창문(outside_bar) 자재현황*/
       elements = outside_out.querySelectorAll('span')
       elements[1].innerHTML = outside_bar;
@@ -499,7 +516,8 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
-
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			
       /*창문(inside_bar) 자재현황*/
       elements = inside_out.querySelectorAll('span')
       elements[1].innerHTML = inside_bar;
@@ -508,7 +526,8 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
-
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			
       /*창문부속 자재현황*/
       elements = window_part_out.querySelectorAll('span')
       elements[2].innerHTML = book.diesbook[elements[1].textContent]
@@ -516,7 +535,9 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
-
+			
+			if(window_part_count!=0){bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})}
+			
       /*방충망 틀 자재현황*/
       switch (screen_frame.value) {
         case "sc-8":
@@ -525,6 +546,7 @@
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
           break;
         case "sc-19":
           elements = sc19_out.querySelectorAll('span')
@@ -533,6 +555,7 @@
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
           break;
         case "sc-20":
           elements = sc19_out.querySelectorAll('span')
@@ -541,6 +564,7 @@
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
 
           elements = sc20_out.querySelectorAll('span')
           elements[2].innerHTML = book.diesbook["sc-20"]
@@ -548,6 +572,7 @@
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
           break;
         case "미설치":
           break;
@@ -679,12 +704,12 @@
           break;
       }
 
-      /*주문내역을 장바구니에 담기 위한 코드입니다.*/
+      /*주문내역을 담기 위한 코드입니다.*/
       order_container = `
         <section class="order-container container">
           <h1 class="section-title">주문내용</h1>
           <ul class="order-list">
-            <li class="work-title"><span>${work_title}<span><li>
+            <li class="work-title"><span>${work_title}<span></li>
             <li class="work">작업구분: <span>${work.checked?"제작작업":"절단작업"}</span></li>
             <li class="type">타입(type): <span>${type}짝문</span></li>
             <li class="wide">너비(wide): <span>${width}mm</span></li>
@@ -708,38 +733,80 @@
       const footer_container = `
         <form action="" class="footer">
           <label for="last-weight">
-            <input type="number" id="last-weight" placeholder="kg">
-            <button class="weight_send button">절단완료</button>
+            <input type="number" id="last-weight" placeholder="kg"> 
           </label>
+          <button class="weight_send button">절단완료</button>
+          <button class="work_send button">제작완료</button>
         </form>
         <script>
-          let pageId
-          function getValue(data){
+          let pageId,order
+          function getValue(data,order_data){
             pageId = data
+            order = order_data
           }
-
-          const button = document.querySelector('.weight_send')
-          button.addEventListener('click',async (event)=>{
-          event.preventDefault()
-          const weight = Number(document.querySelector('#last-weight').value)
-            const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                pageId: pageId,
-                weight: weight
+          
+          /*절단완료 버튼 클릭시*/
+          const cut_button = document.querySelector('.weight_send')
+          cut_button.addEventListener('click',async (event)=>{
+            event.preventDefault()
+            console.log(pageId,order)
+            const weight = Number(document.querySelector('#last-weight').value)
+            console.log(weight);
+            if(weight!=null && weight!=0 && weight!='0'){
+              const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  pageId: pageId,
+                  weight: weight,
+                  button_name:cut_button.textContent
+                })
               })
-            })
-            if(res.ok){
-              alert('데이터베이스에 반영되었습니다.')
-              if (window.opener) {
-                window.opener.location.reload();
+              if(res.ok){
+                alert('데이터베이스에 반영되었습니다.')
+                if (window.opener) {
+                  window.opener.location.reload();
+                }
+                window.close()
+              }else{
+                alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+                console.log(res)
               }
-              window.close()
             }else{
-              alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+              alert('무게를 입력하세요')
+            }
+          })
+            
+          /*제작완료 버튼 클릭시*/
+          const work_button = document.querySelector('.work_send')
+          work_button.addEventListener('click',async (event)=>{
+            event.preventDefault()
+            console.log(pageId,order)
+            if(order=="제작 작업"||order=="제작 작업 "){
+              const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  pageId: pageId,
+                  button_name:work_button.textContent
+                })
+              })
+              if(res.ok){
+                alert('데이터베이스에 반영되었습니다.')
+                if (window.opener) {
+                  window.opener.location.reload();
+                }
+                window.close()
+              }else{
+                alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+                console.log(res)
+              }
+            }else{
+              alert("절단작업은 제작완료 버튼을 사용할 수 없습니다.")
             }
           })`
       div.innerHTML = order_container + cutting_container + footer_container
@@ -752,6 +819,7 @@
       const blob = new Blob([cutting_html.outerHTML], {
         type: 'text/html'
       });
+			
       const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
         method: "POST",
         headers: {
@@ -761,15 +829,17 @@
           client: client_name,
           work_title:work_title,
           order: work.checked ? '제작 작업' : '절단 작업',
-          color: color,
+					limit: now.toISOString().split('T')[0],
+					payment:"결재전",
           part_price: work.checked ? part_price : 0,
           worklist: worklist_url_key,
-          content: await blobToBase64(blob)
+          content: await blobToBase64(blob),
+					bar_data:bar_data,
         })
       })
       if (res.ok) {
         const data = await res.json();
-        window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
+//        window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
       } else {
         const errorText = await res.text();
         console.log('post error', res.statusText, errorText)
