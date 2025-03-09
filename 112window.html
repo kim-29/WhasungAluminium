@@ -234,6 +234,7 @@
   </section>
 
   <script>
+		/*=================변수설정======================*/
     const book = {
       "diesbook": {
         /*형번호:무게(kg/m)*/
@@ -300,30 +301,23 @@
       },
     }
 
-
     let cutting_html = document.createElement('html');
     const style = document.querySelector('style').innerHTML
     cutting_html.innerHTML = `
-  <!DOCTYPE html>
-  <html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <title>112mm slide window File</title>
-    <style>${style}</style>
-  </head>
-  <body>
-  </body>
-  </html>`
-    /*===end of main code==============================*/
+			<!DOCTYPE html>
+			<html lang="ko">
+			<head>
+				<meta charset="UTF-8">
+				<title>112mm slide window File</title>
+				<style>${style}</style>
+			</head>
+			<body>
+			</body>
+			</html>`
 
+		/*================================================*/
 
-
-
-
-
-
-
-    /*=========변수설정=====================*/
+		/*전역변수 설정*/
     const work_title = document.querySelector('.work-title').textContent
     const frame_out = document.querySelector('.frame.result')
     const top_out = document.querySelector('.window-top.result')
@@ -355,7 +349,7 @@
     let type, width, height, color, tickness, tickness_16, screen_frame, count, screen, rain_hole, memo
     let order_container
     let part_price = 0;
-
+		let bar_data =[]
 
 
     /*=========초기화=====================*/
@@ -395,11 +389,9 @@
     result_button.addEventListener('click', () => {
 
       initial() /*초기화*/
-
-      /*변수 설정*/
-      let elements, sum = 0,
-        weight = 0,
-        weight_sum = 0
+      
+      let elements, sum = 0, weight = 0, weight_sum = 0
+			
       type = Number(document.querySelector('#type').value)
       width = Number(document.querySelector('#width').value)
       height = Number(document.querySelector('#height').value)
@@ -461,7 +453,7 @@
           break;
       }
 
-
+			
 
       /*frame 자재현황*/
       elements = frame_out.querySelectorAll('span')
@@ -470,7 +462,8 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
-
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			
       /*창문(top_bar) 자재현황*/
       elements = top_out.querySelectorAll('span')
       elements[1].innerHTML = top_bar;
@@ -479,6 +472,7 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
 
       /*창문(bottom_bar) 자재현황*/
       elements = bottom_out.querySelectorAll('span')
@@ -488,7 +482,8 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
-
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			
       /*창문(outside_bar) 자재현황*/
       elements = outside_out.querySelectorAll('span')
       elements[1].innerHTML = outside_bar;
@@ -497,6 +492,7 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
 
       /*창문(inside_bar) 자재현황*/
       elements = inside_out.querySelectorAll('span')
@@ -506,6 +502,7 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
 
       /*창문부속 자재현황*/
       elements = window_part_out.querySelectorAll('span')
@@ -514,6 +511,7 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
+			if(window_part_count!=0){bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})}
 
       /*방충망 틀 자재현황*/
       switch (screen_frame.value) {
@@ -523,6 +521,7 @@
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
           break;
         case "sc-19":
           elements = sc19_out.querySelectorAll('span')
@@ -531,6 +530,7 @@
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
           break;
         case "sc-20":
           elements = sc19_out.querySelectorAll('span')
@@ -539,18 +539,22 @@
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
-
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+					
           elements = sc20_out.querySelectorAll('span')
           elements[2].innerHTML = book.diesbook["sc-20"]
           elements[3].innerHTML = screen_height * (type == 3 ? 4 : 2) * count
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
           break;
         case "미설치":
           break;
       }
-
+			
+			console.log(bar_data);
+			
       elements = result_out.querySelectorAll('span')
       elements[4].innerHTML = weight_sum.toLocaleString("en-US")
 
@@ -792,6 +796,7 @@
       const blob = new Blob([cutting_html.outerHTML], {
         type: 'text/html'
       });
+			
       const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
         method: "POST",
         headers: {
@@ -801,17 +806,17 @@
           client: client_name,
           work_title:work_title,
           order: work.checked ? '제작 작업' : '절단 작업',
-          color: color,
 					limit: now.toISOString().split('T')[0],
 					payment:"결재전",
           part_price: work.checked ? part_price : 0,
           worklist: worklist_url_key,
-          content: await blobToBase64(blob)
+          content: await blobToBase64(blob),
+					bar_data:bar_data,
         })
       })
       if (res.ok) {
         const data = await res.json();
-        window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
+//        window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
       } else {
         const errorText = await res.text();
         console.log('post error', res.statusText, errorText)
