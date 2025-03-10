@@ -356,7 +356,7 @@
     const sc19_cut = document.querySelector('.sc19.cutting')
     const sc20_cut = document.querySelector('.sc20.cutting')
 
-    let type, width, height, color, tickness, tickness_16, screen_frame, count, screen, rain_hole, memo
+    let type, width, height, color, tickness, tickness_16, screen_frame, count, screen, rain_hole, work, memo
     let order_container
     let part_price = 0;
 		let bar_data =[]
@@ -830,7 +830,7 @@
       })
       if (res.ok) {
         const data = await res.json();
-//        window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
+        window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
       } else {
         const errorText = await res.text();
         console.log('post error', res.statusText, errorText)
