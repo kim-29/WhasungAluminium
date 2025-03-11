@@ -371,9 +371,9 @@
         "16mm": ['NS88SL-403', 'NS85SL-603', 'NS88SL-703', 'NS88SL-803'],
 			},
 			"glassbook45": {
-        "8mm": ["1110"],
-        "16mm": ['1116'],
-        "20mm": ['1116-1'],
+        "8mm": ["1110(오사이)"],
+        "16mm": ['1116(오사이)'],
+        "20mm": ['1116-1(오사이)'],
       },
     }
 
@@ -896,7 +896,7 @@
           work_title:work_title,
           order: work.checked ? '제작 작업' : '절단 작업',
 					limit: now.toISOString().split('T')[0],
-					payment:"결재전",
+					payment:"결전",
           part_price: work.checked ? part_price : 0,
           worklist: worklist_url_key,
           content: await blobToBase64(blob),
