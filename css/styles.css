@@ -73,11 +73,12 @@ a{
 .list{
   grid-template-columns: repeat(9,1fr);
 	text-align: center;
+	padding: .5rem 0rem;
 }
 .list-title{
 	font-weight: bold;
 	border-bottom: 1px solid;
-	line-height: 4rem;
+	line-height: 2rem;
 }
 
 button{
