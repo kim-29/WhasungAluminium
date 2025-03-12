@@ -106,7 +106,7 @@ window.addEventListener('load',async ()=>{
 				}else{
 					console.log('change limit date error');
 				}
-				socket.onmessage('update')
+				socket.send('update')
 			})
 		})
 	
