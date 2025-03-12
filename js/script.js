@@ -1,27 +1,14 @@
 /*window를 load 할 때 list update 할 수 있도록 수정*/
 
 window.addEventListener('load',async ()=>{
-  async function getNotionPage() {
-    const url = 'https://shrill-hill-66e0.nameofwind.workers.dev';
 
-    const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-    });
+	/*websocket connect*/
+	let socket;
+	connectWebSocket();
 
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    } else {
-        console.log(`Failed to retrieve data: ${response.status}`);
-    }
-
-  }
-
+	/*get Notion Page*/
   const data = await getNotionPage();
-  console.log(data);
+  
   
   
   const list_ul = document.querySelector('.lists');
@@ -41,8 +28,8 @@ window.addEventListener('load',async ()=>{
 
       <span>
         <select class="payment" aria-label="payment">
-					<option value="결재전" ${result.properties.payment.select.name === "결재전" ? "selected" : ""}>결재전</option>
-					<option value="결재완료" ${result.properties.payment.select.name === "결재완료" ? "selected" : ""}>결재완료</option>
+					<option value="결제전" ${result.properties.payment.select.name === "결제전" ? "selected" : ""}>결제전</option>
+					<option value="결제완료" ${result.properties.payment.select.name === "결제완료" ? "selected" : ""}>결제완료</option>
 					<option value="외상" ${result.properties.payment.select.name === "외상" ? "selected" : ""}>외상</option>
         </select>
       </span>
@@ -98,6 +85,7 @@ window.addEventListener('load',async ()=>{
 				}else{
 					console.log('change limit date error');
 				}
+				socket.onmessage('update')
 			})
 		})
 
@@ -111,13 +99,14 @@ window.addEventListener('load',async ()=>{
 				const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev/",{
 					method:'PUT',
 					headers:{'Content-Type': 'application/json'},
-					body:JSON.stringify({button_name:"결재상태",pageId:pageId,status:this.value})
+					body:JSON.stringify({button_name:"결제상태",pageId:pageId,status:this.value})
 				})
 				if(res.ok){
 					console.log('change limit date')
 				}else{
 					console.log('change limit date error');
 				}
+				socket.onmessage('update')
 			})
 		})
 	
@@ -128,10 +117,59 @@ window.addEventListener('load',async ()=>{
 			alert('삭제 버튼은 아직 구현되지 않았습니다.')
 		})
 	})
-	
 })
 
 
+
+/*websocket connect function*/
+function connectWebSocket() {
+		socket = new WebSocket('wss://shrill-hill-66e0.nameofwind.workers.dev/');
+
+		socket.onopen = () => {
+				console.log('WebSocket 연결 성공!');
+		};
+
+		socket.onmessage = (event) => {
+				console.log('서버로부터 수신된 메시지:', event.data);
+				if(event.data=='update'){
+					location.reload()	
+				}else{
+					
+				}
+				
+		};
+
+		socket.onclose = () => {
+				console.log('WebSocket 연결 종료. 다시 연결 시도 중...');
+				setTimeout(connectWebSocket, 1000); // 1초 후 다시 연결
+		};
+
+		socket.onerror = (error) => {
+				console.error('WebSocket 오류:', error);
+				socket.close(); // 오류 발생 시 연결 종료
+		};
+	}
+
+
+/*get Notion Page*/
+async function getNotionPage() {
+    const url = 'https://shrill-hill-66e0.nameofwind.workers.dev';
+
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        return data;
+    } else {
+        console.log(`Failed to retrieve data: ${response.status}`);
+    }
+
+  }
 
 
 
