@@ -3,7 +3,7 @@
 window.addEventListener('load',async ()=>{
 
 	/*websocket connect*/
-	let socket;
+	let socket = new WebSocket('wss://shrill-hill-66e0.nameofwind.workers.dev/');
 	connectWebSocket();
 
 	/*get Notion Page*/
@@ -106,7 +106,7 @@ window.addEventListener('load',async ()=>{
 				}else{
 					console.log('change limit date error');
 				}
-				socket.send('update')
+				await socket.send('update')
 			})
 		})
 	
@@ -123,7 +123,7 @@ window.addEventListener('load',async ()=>{
 
 /*websocket connect function*/
 function connectWebSocket() {
-		socket = new WebSocket('wss://shrill-hill-66e0.nameofwind.workers.dev/');
+		
 
 		socket.onopen = () => {
 				console.log('WebSocket 연결 성공!');
