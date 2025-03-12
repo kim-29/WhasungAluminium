@@ -4,7 +4,7 @@ window.addEventListener('load',async ()=>{
 
 	/*websocket connect*/
 	let socket = new WebSocket('wss://shrill-hill-66e0.nameofwind.workers.dev/');
-	connectWebSocket();
+	await connectWebSocket(socket);
 
 	/*get Notion Page*/
   const data = await getNotionPage();
@@ -122,7 +122,7 @@ window.addEventListener('load',async ()=>{
 
 
 /*websocket connect function*/
-function connectWebSocket() {
+function connectWebSocket(socket) {
 		
 
 		socket.onopen = () => {
