@@ -1,9 +1,9 @@
 /*window를 load 할 때 list update 할 수 있도록 수정*/
-
+let socket
 window.addEventListener('load',async ()=>{
 
 	/*websocket connect*/
-	let socket = new WebSocket('wss://shrill-hill-66e0.nameofwind.workers.dev/');
+	socket = new WebSocket('wss://shrill-hill-66e0.nameofwind.workers.dev/');
 	await connectWebSocket(socket);
 
 	/*get Notion Page*/
@@ -123,32 +123,25 @@ window.addEventListener('load',async ()=>{
 
 /*websocket connect function*/
 function connectWebSocket(socket) {
-		
-
-		socket.onopen = () => {
-				console.log('WebSocket 연결 성공!');
-		};
-
-		socket.onmessage = (event) => {
-				console.log('서버로부터 수신된 메시지:', event.data);
-				if(event.data=='update'){
-					location.reload()	
-				}else{
-					
-				}
-				
-		};
-
-		socket.onclose = () => {
-				console.log('WebSocket 연결 종료. 다시 연결 시도 중...');
-				setTimeout(connectWebSocket, 1000); // 1초 후 다시 연결
-		};
-
-		socket.onerror = (error) => {
-				console.error('WebSocket 오류:', error);
-				socket.close(); // 오류 발생 시 연결 종료
-		};
-	}
+	socket.onopen = () => {
+			console.log('WebSocket 연결 성공!');
+	};
+	socket.onmessage = (event) => {
+			console.log('서버로부터 수신된 메시지:', event.data);
+			if(event.data=='update'){
+//					location.reload();	
+			}else{
+			}
+	};
+	socket.onclose = () => {
+			console.log('WebSocket 연결 종료. 다시 연결 시도 중...');
+			setTimeout(connectWebSocket, 1000); // 1초 후 다시 연결
+	};
+	socket.onerror = (error) => {
+			console.error('WebSocket 오류:', error);
+			socket.close(); // 오류 발생 시 연결 종료
+	};
+}
 
 
 /*get Notion Page*/
