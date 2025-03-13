@@ -87,7 +87,13 @@ window.addEventListener('load',async ()=>{
 	})
 })
 
-
+// 새로고침 후 상태 확인 및 비프음 실행
+window.addEventListener('load', () => {
+	if (localStorage.getItem('playBeepAfterReload') === 'true') {
+			localStorage.removeItem('playBeepAfterReload'); // 상태 초기화
+			beep(); // 비프음 재생
+	}
+});
 
 /*websocket connect function*/
 function connectWebSocket(socket) {
@@ -98,10 +104,15 @@ function connectWebSocket(socket) {
 	
 	socket.onmessage = (event) => {
 		if(event.data=='update'){
-			location.reload();
+			const beep = new Audio("./sound/sound.mp3"); 
+    	beep.play();
+			// 효과음이 끝난 후에 reload 실행
+			beep.onended = function () {
+					location.reload(); // 페이지 새로고침
+			};
 		}else{
-			location.reload();
-			console.log("알림음을 구현합니다.")
+			
+			location.reload(); // 새로고침
 		}
 	};
 	
@@ -171,6 +182,5 @@ function dataUpdate(data){
     /*li에 이벤트리스너 삽입*/
   }
 }
-
 
 

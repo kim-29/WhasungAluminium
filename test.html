@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/*호출 벨 구현*/
+			function beep(duration = 2000, frequency = 440, volume = 1) {
+					const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+					const oscillator = audioContext.createOscillator();
+					const gainNode = audioContext.createGain();
+
+					// 주파수와 음량 설정
+					oscillator.frequency.value = frequency;
+					gainNode.gain.value = volume;
+
+					// 오디오 연결
+					oscillator.connect(gainNode);
+					gainNode.connect(audioContext.destination);
+
+					// 소리 시작 및 종료
+					oscillator.start();
+					setTimeout(() => {
+							oscillator.stop();
+							audioContext.close();
+					}, duration);
+			}
+			setInterval(beep(),3000)
+	</script>
+</body>
+</html>
+
+
