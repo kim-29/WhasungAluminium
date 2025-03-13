@@ -1,5 +1,5 @@
 /*window를 load 할 때 list update 할 수 있도록 수정*/
-let socket
+let socket, data
 window.addEventListener('load',async ()=>{
 
 	/*websocket connect*/
@@ -7,42 +7,11 @@ window.addEventListener('load',async ()=>{
 	connectWebSocket(socket);
 
 	/*get Notion Page*/
-  const data = await getNotionPage();
-  
-  
-  
-  const list_ul = document.querySelector('.lists');
-  for (let i = 0; i < 20 && i < data.results.length; i++) {
-    const result = data.results[i];
-
-			
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <span>${result.properties.clients.title[0].text.content}</span>
-      <span>${result.properties.work_title.rich_text[0].text.content}</span>
-      <span><button class="list-work">${result.properties.order.select.name}</button></span>
-      <span class="list-status" style= "color: ${result.properties.status.status.color}"> ${result.properties.status.status.name}</span>
-      <span><input type="date" class="limit" aria-label="limit" value="${result.properties.limit_day.date.start}"></span>
-      <span>${result.properties.weight.number?result.properties.weight.number+'kg':''}</span>
-      <span>${result.properties.price.formula.number?(result.properties.price.formula.number).toLocaleString('en-US')+'원':''}</span>
-
-      <span>
-        <select class="payment" aria-label="payment">
-					<option value="결제전" ${result.properties.payment.select.name === "결제전" ? "selected" : ""}>결제전</option>
-					<option value="결제완료" ${result.properties.payment.select.name === "결제완료" ? "selected" : ""}>결제완료</option>
-					<option value="외상" ${result.properties.payment.select.name === "외상" ? "selected" : ""}>외상</option>
-        </select>
-      </span>
-
-      <span><button class="delete" style="background-color:red;color:white;">삭제</button></span>`;
-    li.classList.add('list', 'grid');
-		li.setAttribute('data-page',result.id);
-		li.setAttribute('data-key',result.properties.worklist.url)
-    list_ul.appendChild(li);
-    /*li에 이벤트리스너 삽입*/
-  }
+  data = await getNotionPage();
 	
-	
+	/*data update*/
+  dataUpdate(data)
+  
 	/*작업내역 클릭시*/
 		const list_works = document.querySelectorAll('.list-work');
 
@@ -82,10 +51,10 @@ window.addEventListener('load',async ()=>{
 				})
 				if(res.ok){
 					console.log('change limit date')
+					socket.send('update')
 				}else{
 					console.log('change limit date error');
 				}
-				socket.onmessage('update')
 			})
 		})
 
@@ -103,10 +72,11 @@ window.addEventListener('load',async ()=>{
 				})
 				if(res.ok){
 					console.log('change limit date')
+					socket.send('update')
 				}else{
 					console.log('change limit date error');
 				}
-				await socket.send('update')
+				
 			})
 		})
 	
@@ -122,27 +92,33 @@ window.addEventListener('load',async ()=>{
 
 
 /*websocket connect function*/
-function connectWebSocket(socket) {
+async function connectWebSocket(socket) {
+	
 	socket.onopen = () => {
-			console.log('WebSocket 연결 성공!');
+		console.log('WebSocket 연결 성공!');
 	};
+	
 	socket.onmessage = (event) => {
-			console.log('서버로부터 수신된 메시지:', event.data);
-			if(event.data=='update'){
-					console.log("update를 구현합니다.")
-					
-			}else{
-				console.log("update와 알림음을 구현합니다.")
-			}
+		data = await getNotionPage();
+		if(event.data=='update'){
+			dataUpdate(data)
+			console.log("페이지 업데이트를 구현합니다.")
+		}else{
+			dataUpdate(data)
+			console.log("알림음을 구현합니다.")
+		}
 	};
+	
 	socket.onclose = () => {
-			console.log('WebSocket 연결 종료. 다시 연결 시도 중...');
-			setTimeout(connectWebSocket, 1000); // 1초 후 다시 연결
+		console.log('WebSocket 연결 종료. 다시 연결 시도 중...');
+		setTimeout(connectWebSocket, 1000); // 1초 후 다시 연결
 	};
+	
 	socket.onerror = (error) => {
-			console.error('WebSocket 오류:', error);
-			socket.close(); // 오류 발생 시 연결 종료
+		console.error('WebSocket 오류:', error);
+		socket.close(); // 오류 발생 시 연결 종료
 	};
+	
 }
 
 
@@ -166,6 +142,39 @@ async function getNotionPage() {
 
   }
 
+/*dataUpdate*/
+dataUpdate(data){
+	const list_ul = document.querySelector('.lists');
+  for (let i = 0; i < 20 && i < data.results.length; i++) {
+    const result = data.results[i];
+
+			
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <span>${result.properties.clients.title[0].text.content}</span>
+      <span>${result.properties.work_title.rich_text[0].text.content}</span>
+      <span><button class="list-work">${result.properties.order.select.name}</button></span>
+      <span class="list-status" style= "color: ${result.properties.status.status.color}"> ${result.properties.status.status.name}</span>
+      <span><input type="date" class="limit" aria-label="limit" value="${result.properties.limit_day.date.start}"></span>
+      <span>${result.properties.weight.number?result.properties.weight.number+'kg':''}</span>
+      <span>${result.properties.price.formula.number?(result.properties.price.formula.number).toLocaleString('en-US')+'원':''}</span>
+
+      <span>
+        <select class="payment" aria-label="payment">
+					<option value="결제전" ${result.properties.payment.select.name === "결제전" ? "selected" : ""}>결제전</option>
+					<option value="결제완료" ${result.properties.payment.select.name === "결제완료" ? "selected" : ""}>결제완료</option>
+					<option value="외상" ${result.properties.payment.select.name === "외상" ? "selected" : ""}>외상</option>
+        </select>
+      </span>
+
+      <span><button class="delete" style="background-color:red;color:white;">삭제</button></span>`;
+    li.classList.add('list', 'grid');
+		li.setAttribute('data-page',result.id);
+		li.setAttribute('data-key',result.properties.worklist.url)
+    list_ul.appendChild(li);
+    /*li에 이벤트리스너 삽입*/
+  }
+}
 
 
 
