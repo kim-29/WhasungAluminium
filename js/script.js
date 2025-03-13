@@ -1,5 +1,5 @@
 /*window를 load 할 때 list update 할 수 있도록 수정*/
-let socket, data
+let socket, notionData
 window.addEventListener('load',async ()=>{
 
 	/*websocket connect*/
@@ -7,10 +7,10 @@ window.addEventListener('load',async ()=>{
 	connectWebSocket(socket);
 
 	/*get Notion Page*/
-  data = await getNotionPage();
+  notionData = await getNotionPage();
 	
 	/*data update*/
-  dataUpdate(data)
+  dataUpdate(notionData)
   
 	/*작업내역 클릭시*/
 		const list_works = document.querySelectorAll('.list-work');
@@ -98,13 +98,11 @@ function connectWebSocket(socket) {
 		console.log('WebSocket 연결 성공!');
 	};
 	
-	socket.onmessage = async (event) => {
-		data = await getNotionPage();
+	socket.onmessage = (event) => {
 		if(event.data=='update'){
-			dataUpdate(data)
-			console.log("페이지 업데이트를 구현합니다.")
+			location.reload();
 		}else{
-			dataUpdate(data)
+			location.reload();
 			console.log("알림음을 구현합니다.")
 		}
 	};
@@ -147,7 +145,7 @@ function dataUpdate(data){
 	const list_ul = document.querySelector('.lists');
   for (let i = 0; i < 20 && i < data.results.length; i++) {
     const result = data.results[i];
-
+		
 			
     const li = document.createElement('li');
     li.innerHTML = `
