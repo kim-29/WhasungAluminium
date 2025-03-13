@@ -3,7 +3,7 @@ let socket
 window.addEventListener('load',async ()=>{
 
 	/*websocket connect*/
-	socket = new WebSocket('wss://shrill-hill-66e0.nameofwind.workers.dev/');
+	socket = new WebSocket('wss://whasung-websocket.onrender.com');
 	connectWebSocket(socket);
 
 	/*get Notion Page*/
@@ -129,7 +129,7 @@ function connectWebSocket(socket) {
 	socket.onmessage = (event) => {
 			console.log('서버로부터 수신된 메시지:', event.data);
 			if(event.data=='update'){
-//					location.reload();	
+					location.reload();	
 			}else{
 			}
 	};
