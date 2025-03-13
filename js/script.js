@@ -130,6 +130,7 @@ function connectWebSocket(socket) {
 			console.log('서버로부터 수신된 메시지:', event.data);
 			if(event.data=='update'){
 					console.log("update를 구현합니다.")
+					
 			}else{
 				console.log("update와 알림음을 구현합니다.")
 			}
