@@ -51,7 +51,6 @@ window.addEventListener('load',async ()=>{
 				})
 				if(res.ok){
 					console.log('change limit date')
-					socket.send('update')
 				}else{
 					console.log('change limit date error');
 				}
@@ -72,7 +71,6 @@ window.addEventListener('load',async ()=>{
 				})
 				if(res.ok){
 					console.log('change limit date')
-					socket.send('update')
 				}else{
 					console.log('change limit date error');
 				}
