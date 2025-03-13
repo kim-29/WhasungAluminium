@@ -92,13 +92,13 @@ window.addEventListener('load',async ()=>{
 
 
 /*websocket connect function*/
-async function connectWebSocket(socket) {
+function connectWebSocket(socket) {
 	
 	socket.onopen = () => {
 		console.log('WebSocket 연결 성공!');
 	};
 	
-	socket.onmessage = (event) => {
+	socket.onmessage = async (event) => {
 		data = await getNotionPage();
 		if(event.data=='update'){
 			dataUpdate(data)
@@ -143,7 +143,7 @@ async function getNotionPage() {
   }
 
 /*dataUpdate*/
-dataUpdate(data){
+function dataUpdate(data){
 	const list_ul = document.querySelector('.lists');
   for (let i = 0; i < 20 && i < data.results.length; i++) {
     const result = data.results[i];
