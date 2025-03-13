@@ -104,15 +104,14 @@ function connectWebSocket(socket) {
 	
 	socket.onmessage = (event) => {
 		if(event.data=='update'){
+			location.reload(); // 새로고침
+		}else{
 			const beep = new Audio("./sound/sound.mp3"); 
     	beep.play();
 			// 효과음이 끝난 후에 reload 실행
 			beep.onended = function () {
 					location.reload(); // 페이지 새로고침
 			};
-		}else{
-			
-			location.reload(); // 새로고침
 		}
 	};
 	
