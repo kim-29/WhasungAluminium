@@ -1,10 +1,9 @@
 /*window를 load 할 때 list update 할 수 있도록 수정*/
 let socket, notionData
 
-
-
-
-
+/*websocket connect*/
+socket = new WebSocket('wss://whasung-websocket.onrender.com');
+connectWebSocket();
 
 window.addEventListener('load',async ()=>{
 	  const soundButton = document.querySelector('.soundButton')
@@ -40,9 +39,7 @@ window.addEventListener('load',async ()=>{
 		soundButton.style="background-color:dodgerblue"
 		console.log(soundEnabled)
 	}
-	/*websocket connect*/
-	socket = new WebSocket('wss://whasung-websocket.onrender.com');
-	connectWebSocket(socket);
+	
 
 	/*get Notion Page*/
   notionData = await getNotionPage();
@@ -134,7 +131,10 @@ window.addEventListener('load', () => {
 });
 
 /*websocket connect function*/
-function connectWebSocket(socket) {
+function connectWebSocket() {
+	
+	socket = new WebSocket('wss://whasung-websocket.onrender.com');
+	
 	
 	socket.onopen = () => {
 		console.log('WebSocket 연결 성공!');
@@ -147,17 +147,14 @@ function connectWebSocket(socket) {
 		}else{
 			const soundEnabled = localStorage.getItem('soundEnabled');
 			if (soundEnabled === 'true') {
-				console.log('aoundEnabled=false')
         const audio = new Audio('./sound/sound.mp3');
         audio.play().catch(error => {
-            console.error('오디오 재생 실패:', error);
+          console.error('오디오 재생 실패:', error);
         });
 				// 효과음이 끝난 후에 reload 실행
 				audio.onended = function () {
 					location.reload(); // 페이지 새로고침	
 				};
-			}else{
-				console.log('aoundEnabled=false')
 			}
 		}
 	};
