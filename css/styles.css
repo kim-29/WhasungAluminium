@@ -90,3 +90,6 @@ button{
   cursor: pointer;
   text-align: center;
 }
+.soundButton{
+	background-color: red;
+}

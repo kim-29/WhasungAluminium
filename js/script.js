@@ -1,11 +1,33 @@
 /*window를 load 할 때 list update 할 수 있도록 수정*/
 let socket, notionData
+
+const soundButton = document.querySelector('.soundButton')
+soundButton.addEventListener('click', function() {
+		const soundEnabled = localStorage.getItem('soundEnabled');
+		if (soundEnabled === 'true'){
+			soundButton.innerHTML="소리꺼짐";
+			soundButton.style="background-color:red"
+			localStorage.setItem('soundEnabled', 'false');
+		}else{
+			soundButton.innerHTML="소리켜짐";
+			soundButton.style="background-color:dodgerblue"
+			const audio = new Audio('./sound/sound.mp3');
+			audio.play().then(() => {
+					console.log('오디오 재생 성공!');
+					localStorage.setItem('soundEnabled', 'true'); // 상태 저장
+			}).catch(error => {
+					console.error('오디오 재생 실패:', error);
+			});	
+		}
+});
+
+
 window.addEventListener('load',async ()=>{
 
 	/*websocket connect*/
 	socket = new WebSocket('wss://whasung-websocket.onrender.com');
 	connectWebSocket(socket);
-
+	
 	/*get Notion Page*/
   notionData = await getNotionPage();
 	
@@ -102,16 +124,22 @@ function connectWebSocket(socket) {
 		console.log('WebSocket 연결 성공!');
 	};
 	
+	
 	socket.onmessage = (event) => {
 		if(event.data=='update'){
 			location.reload(); // 새로고침
 		}else{
-			const beep = new Audio("./sound/sound.mp3"); 
-    	beep.play();
-			// 효과음이 끝난 후에 reload 실행
-			beep.onended = function () {
-					location.reload(); // 페이지 새로고침
-			};
+			const soundEnabled = localStorage.getItem('soundEnabled');
+			if (soundEnabled === 'true') {
+        const audio = new Audio('./sound/sound.mp3');
+        audio.play().catch(error => {
+            console.error('오디오 재생 실패:', error);
+        });
+				// 효과음이 끝난 후에 reload 실행
+				audio.onended = function () {
+					location.reload(); // 페이지 새로고침	
+				};
+			}
 		}
 	};
 	
