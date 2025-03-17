@@ -87,7 +87,7 @@
         <select name="type" id="type">
           <option value=2>2짝문</option>
           <option value=3>3짝문</option>
-          <option value=4>4짝문</option>
+<!--          <option value=4>4짝문</option>-->
         </select>
       </label>
       <label for="width">너비(width): <input id="width" type="number" placeholder="mm">mm</label>
@@ -104,9 +104,9 @@
       <label for="screen-frame">방충망 틀(screen frame):
         <select name="screen-frame" id="screen-frame">
           <option value="미설치">미설치</option>
-          <option value="sc-8">sc-8</option>
-          <option value="sc-19">sc-19 only</option>
-          <option value="sc-20">sc-20 사용</option>
+          <option value="SC-8">SC-8</option>
+          <option value="SC-19">SC-19 only</option>
+          <option value="SC-20">SC-20 사용</option>
         </select>
       </label>
       <label for="screen">방충망(screen) 설치: <input type="checkbox" id="screen"></label>
@@ -116,7 +116,7 @@
       <p>[작업관련 요청사항]</p>
       <label for="memo"><textarea name="memo" id="memo" cols="65" rows="5" style="resize:none"></textarea></label>
     </form>
-    <button class="button112">견적산출</button>
+    <button class="result_button">견적산출</button>
     <button class="send">보내기</button>
   </section>
 
@@ -127,22 +127,31 @@
         <span>구분</span><span>형번호</span><span>단위무게(kg/m)</span><span>길이(mm)</span><span>무게(kg)</span>
       </li>
       <li class="frame result">
-        <span>창틀</span><span>hat103sl101</span><span></span><span></span><span></span>
+        <span>창틀</span><span>HAT130SL-103</span><span></span><span></span><span></span>
       </li>
-      <li class="window result">
-        <span>창문</span><span>hat103sl601</span><span></span><span></span><span></span>
+      <li class="side result">
+        <span>창문(사이드)</span><span>HAT130SL-601</span><span></span><span></span><span></span>
+      </li>
+      <li class="center result">
+        <span>창문(센터)</span><span>HAT130SL-601</span><span></span><span></span><span></span>
       </li>
       <li class="window-part result">
-        <span>창문부속</span><span>hat130sl801</span><span></span><span></span><span></span>
+        <span>창문부속</span><span>HAT130SL-801</span><span></span><span></span><span></span>
+      </li>
+      <li class="window-part1 result">
+        <span>창문부속(사이드)</span><span>TBSW230SL-GB28(오사이)</span><span></span><span></span><span></span>
+      </li>
+      <li class="window-part2 result">
+        <span>창문부속(센터)</span><span>TBSW230SL-GB28(오사이)</span><span></span><span></span><span></span>
       </li>
       <li class="sc8 result">
-        <span>방충망 틀</span><span>sc8</span><span></span><span></span><span></span>
+        <span>방충망 틀</span><span>SC-8</span><span></span><span></span><span></span>
       </li>
       <li class="sc19 result">
-        <span>방충망 틀</span><span>sc19</span><span></span><span></span><span></span>
+        <span>방충망 틀</span><span>SC-19</span><span></span><span></span><span></span>
       </li>
       <li class="sc20 result">
-        <span>방충망 틀</span><span>sc20</span><span></span><span></span><span></span>
+        <span>방충망 틀</span><span>SC-20</span><span></span><span></span><span></span>
       </li>
       <li class="result-total result">
         <span>총계</span><span></span><span></span><span></span><span></span>
@@ -182,72 +191,146 @@
         <span>구분</span><span>형번호</span><span>색상</span><span>창틀(너비)<br>/side창문</span><span>창틀(높이)<br>/center창문</span><span>확인</span>
       </li>
       <li class="frame cutting">
-        <span>창틀</span><span>hat103sl101</span><span></span><span></span><span></span><input type="checkbox">
+        <span>창틀</span><span>HAT130SL-103</span><span></span><span></span><span></span><input type="checkbox">
       </li>
-      <li class="window cutting">
-        <span>창문</span>hat103sl601<span></span><span></span><span></span><span></span><input type="checkbox">
+      <li class="side cutting">
+        <span>창문(사이드)</span><span>HAT130SL-601</span><span></span><span></span><span></span><input type="checkbox">
+      </li>
+      <li class="center cutting">
+        <span>창문(센터)</span><span>HAT130SL-601</span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="window-part cutting">
-        <span>창문부속</span><span>hat130sl801</span><span></span><span></span><span></span><input type="checkbox">
+        <span>창문부속</span><span>HAT130SL-801</span><span></span><span></span><span></span><input type="checkbox">
+      </li>
+      <li class="window-part1 cutting">
+        <span>창문부속(사이드)</span><span>TBSW230SL-GB28(오사이)</span><span></span><span></span><span></span><input type="checkbox">
+      </li>
+      <li class="window-part2 cutting">
+        <span>창문부속(센터)</span><span>TBSW230SL-GB28(오사이)</span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="sc8 cutting">
-        <span>방충망 틀</span><span>sc8</span><span></span><span></span><span></span><input type="checkbox">
+        <span>방충망 틀</span><span>SC-8</span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="sc19 cutting">
-        <span>방충망 틀</span><span>sc19</span><span></span><span></span><span></span><input type="checkbox">
+        <span>방충망 틀</span><span>SC-19</span><span></span><span></span><span></span><input type="checkbox">
       </li>
       <li class="sc20 cutting">
-        <span>방충망 틀</span><span>sc20</span><span></span><span></span><span></span><input type="checkbox">
+        <span>방충망 틀</span><span>SC-20</span><span></span><span></span><span></span><input type="checkbox">
       </li>
     </ul>
   </section>
 
   <script>
+		/*=================변수설정======================*/
     const book = {
       "diesbook": {
         /*형번호:무게(kg/m)*/
-        "45p-16-1": 0.546,
-        "45p-19": 0.549,
-        "1110": 0.18,
-        "118": 0.172,
-        "116": 0.162,
-        "116-1": 0.141,
-        "ns88sl114": 0.988,
-        "ns88sl401": 0.497,
-        "ns88sl403": 0.487,
-        "ns88sl601": 0.586,
-        "ns88sl603": 0.557,
-        "ns88sl701": 0.599,
-        "ns88sl703": 0.595,
-        "ns88sl801": 0.522,
-        "ns88sl803": 0.515,
-        "ns112sl104": 1.202,
-        "ns112sl401": 0.648,
-        "ns112sl403": 0.618,
-        "ns112sl404": 0.633,
-        "ns112sl602": 1.267,
-        "ns112sl603": 1.07,
-        "ns112sl604": 1.099,
-        "ns112sl605": 1.104,
-        "ns112sl607": 1.311,
-        "ns112sl701": 0.798,
-        "ns112sl702": 0.769,
-        "ns112sl704": 0.818,
-        "ns112sl707": 0.79,
-        "ns112sl801": 0.769,
-        "ns112sl802": 0.739,
-        "ns112sl804": 0.758,
-        "ns112sl805": 0.793,
-        "ns112sl807": 0.76,
-        "ns112sl701-A": 0.297,
-        "sc-8": 0.267,
-        "sc-19": 0.375,
-        "sc-20": 0.391,
-        "hat130sl101":1.737,
-        "hat130sl601":1.058,
-        "hat130sl801":0.375,
-        "tbsw230slgb28":0.145,
-        
+        "3036":0.760,
+				"100D-3201(도어)":0.655,
+				"100D-3307-5(도어)":1.633,
+				"100D-3903(도어)":1.230,
+				"100SL-516":0.909,
+				"1102(오사이 : 벙어리)":0.210,
+				"1103(오사이)":0.243,
+				"1103-1(오사이)":0.222,
+				"1110(오사이)":0.172,
+				"1116(오사이)":0.150,
+				"1116-1(오사이)":0.138,
+				"1132(오사이)":0.213,
+				"2106(30mm앵글 3T)":0.464,
+				"2106-1(30mm앵글 1.6T)":0.238,
+				"2106-2(30mm앵글 1T)":0.191,
+				"2106-4(30mm앵글 2T)":0.266,
+				"2132(45mm앵글 1T)":0.211,
+				"2139(50mm앵글 2T)":0.537,
+				"3000(100X100mm 각 파이프)":1.266,
+				"3001(100X45mm 각 파이프)":0.792,
+				"3010(120X45mm 각 파이프)":1.267,
+				"3081(80X35mm 각 파이프)":0.758,
+				"3206(미니도어)":0.652,
+				"3501(도어 후라)":0.154,
+				"3502(도어 후라)":0.153,
+				"3603(도어 다리)":0.146,
+				"3800(80X80mm 각 파이프)":0.826,
+				"4200(10X20mm 각 파이프)":0.189,
+				"4203(25X25mm 각 파이프)":0.281,
+				"4204(45X45mm 각 파이프)":0.551,
+				"4206(40X20mm 각 파이프)":0.270,
+				"4207(35X35mm 각 파이프)":0.412,
+				"45P-16-1(창문)":0.480,
+				"45P-19(창틀)":0.476,
+				"80SL-508-1":0.598,
+				"COR-100(코너 바)":1.101,
+				"CW-4464(마리온)":2.611,
+				"CW-5169(마리온)":1.668,
+				"CW-726(마리온)":0.349,
+				"GAL-1(겔러리)":0.215,
+				"GAL-17(겔러리)":0.301,
+				"GAL-18(겔러리)":0.379,
+				"GAL-4-1(겔러리)":0.234,
+				"HAT130SL-103":1.736,
+				"HAT130SL-601":1.055,
+				"HAT130SL-801":0.375,
+				"N560016(마리온)":0.325,
+				"NS112-B":0.641,
+				"NS112-D":1.365,
+				"NS112SL-104":1.158,
+				"NS112SL-401":0.599,
+				"NS112SL-403":0.606,
+				"NS112SL-404":0.592,
+				"NS112SL-417":0.556,
+				"NS112SL-601":1.308,
+				"NS112SL-602":1.283,
+				"NS112SL-603":1.078,
+				"NS112SL-604":1.046,
+				"NS112SL-605":0.969,
+				"NS112SL-607":1.234,
+				"NS112SL-622":0.967,
+				"NS112SL-701":0.637,
+				"NS112SL-701-A":0.248,
+				"NS112SL-702":0.687,
+				"NS112SL-704":0.724,
+				"NS112SL-707":0.692,
+				"NS112SL-801":0.629,
+				"NS112SL-802":0.673,
+				"NS112SL-804":0.697,
+				"NS112SL-805":0.670,
+				"NS112SL-807":0.677,
+				"NS85SL-401":0.413,
+				"NS85SL-601":0.503,
+				"NS88SL-114":0.886,
+				"NS88SL-403":0.419,
+				"NS85SL-603":0.518,
+				"NS88SL-701":0.529,
+				"NS88SL-703":0.490,
+				"NS88SL-801":0.464,
+				"NS88SL-803":0.459,
+				"RP-19*17(19mm 파이프)":0.147,
+				"RP-25*22.6(25mm 파이프)":0.215,
+				"SC-19":0.327,
+				"SC-20":0.340,
+				"SC-21":0.095,
+				"SC-5":0.326,
+				"SC-8":0.172,
+				"SC-9":0.147,
+				"SPA-1501":0.916,
+				"SWL-F-50(마리온)":2.155,
+				"SWL-F-51(마리온)":1.690,
+				"SWL-F-64(마리온)":1.931,
+				"SWL-F-8(마리온)":1.761,
+				"SWL-F-86(마리온)":1.860,
+				"SWL-GB-2(마리온)":0.482,
+				"SWL-MD-2(마리온)":0.470,
+				"SWL-MD-4(마리온)":0.388,
+				"SWL-PF-5(마리온)":1.043,
+				"SWL-V-10(마리온)":1.263,
+				"SWL-V-6(마리온)":1.237,
+				"TB-A3123":1.531,
+				"TBSW230SL-101":3.246,
+				"TBSW230SL-801":0.370,
+				"TBSW230SL-GB28(오사이)":0.140,
+				
+
       },
       "colorbook": {
         /*색상바 단가*/
@@ -258,45 +341,56 @@
         "코팅색상": 12000,
       },
       "tolerancebook": {
+
         /*슬라이딩 윈도우 공차 : [2짝문 너비공차, 3짝문 너비공차, 4짝문 너비공차, 높이공차]*/
-        "window112": [175, 192, 292, 68],
-        "window130": [-6,-22,0,61],
+        "window112": [-175, -192, -292, -68],
+        "screen112": [7, 94, 11, -55],
+        "window88": [-147, -156, -235, -68],
+        "screen88": [-2, 86, -5, -55],
+        /*프로젝트 윈도우 공차 : [너비공차,높이공차]*/
+        "project45": [-36, -36],
+        "project-parts": [115, 145],
       },
-      "glassbook": {
-        "8mm": ["ns112sl401", "ns112sl604", "ns112sl701", "ns112sl801"],
-        "16mm": ['ns112sl403', 'ns112sl602', 'ns112sl702', 'ns112sl802'],
-        "20mm": ['ns112sl404', 'ns112sl607', 'ns112sl707', 'ns112sl807'],
+      "glassbook112": {
+        "8mm": ["NS112SL-401", "NS112SL-604", "NS112SL-701", "NS112SL-801"],
+        "16mm": ['NS112SL-403', 'NS112SL-602', 'NS112SL-702', 'NS112SL-802'],
+        "20mm": ['NS112SL-404', 'NS112SL-607', 'NS112SL-707', 'NS112SL-807'],
+      },
+			"glassbook88":{
+				"8mm": ["NS85SL-401", "NS85SL-601", "NS88SL-701", "NS88SL-801"],
+        "16mm": ['NS88SL-403', 'NS85SL-603', 'NS88SL-703', 'NS88SL-803'],
+			},
+			"glassbook45": {
+        "8mm": ["1110(오사이)"],
+        "16mm": ['1116(오사이)'],
+        "20mm": ['1116-1(오사이)'],
       },
     }
-
 
     let cutting_html = document.createElement('html');
     const style = document.querySelector('style').innerHTML
     cutting_html.innerHTML = `
-  <!DOCTYPE html>
-  <html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <title>112mm slide window File</title>
-    <style>${style}</style>
-  </head>
-  <body>
-  </body>
-  </html>`
-    /*===end of main code==============================*/
+			<!DOCTYPE html>
+			<html lang="ko">
+			<head>
+				<meta charset="UTF-8">
+				<title>112mm slide window File</title>
+				<style>${style}</style>
+			</head>
+			<body>
+			</body>
+			</html>`
 
+		/*================================================*/
 
-
-
-
-
-
-
-    /*=========변수설정=====================*/
+		/*전역변수 설정*/
     const work_title = document.querySelector('.work-title').textContent
     const frame_out = document.querySelector('.frame.result')
-    const window_out = document.querySelector('.window.result')
-    const window_part_out = document.querySelector(".window-part.result")
+    const side_out = document.querySelector('.side.result')
+		const center_out = document.querySelector('.center.result')
+		const window_part_out = document.querySelector(".window-part.result")
+    const window_part1_out = document.querySelector(".window-part1.result")
+		const window_part2_out = document.querySelector(".window-part2.result")
     const sc8_out = document.querySelector('.sc8.result')
     const sc19_out = document.querySelector('.sc19.result')
     const sc20_out = document.querySelector('.sc20.result')
@@ -309,16 +403,19 @@
     const total = document.querySelector('.total.price')
 
     const frame_cut = document.querySelector('.frame.cutting')
-    const window_cut = document.querySelector('.window.cutting')
+    const side_cut = document.querySelector('.side.cutting')
+		const center_cut = document.querySelector('.center.cutting')
     const window_part_cut = document.querySelector(".window-part.cutting")
+		const window_part1_cut = document.querySelector(".window-part1.cutting")
+		const window_part2_cut = document.querySelector(".window-part2.cutting")
     const sc8_cut = document.querySelector('.sc8.cutting')
     const sc19_cut = document.querySelector('.sc19.cutting')
     const sc20_cut = document.querySelector('.sc20.cutting')
 
-    let type, width, height, color, screen_frame, count, screen, rain_hole, memo
+    let type, width, height, color, screen_frame, count, screen, rain_hole, work, memo
     let order_container
     let part_price = 0;
-
+		let bar_data =[]
 
 
     /*=========초기화=====================*/
@@ -354,15 +451,13 @@
 
 
     /*=========예상 견적가 및 절단내역=====================*/
-    const result_button = document.querySelector('.button112')
+    const result_button = document.querySelector('.result_button')
     result_button.addEventListener('click', () => {
 
       initial() /*초기화*/
-
-      /*변수 설정*/
-      let elements, sum = 0,
-        weight = 0,
-        weight_sum = 0
+      
+      let elements, sum = 0, weight = 0, weight_sum = 0
+			
       type = Number(document.querySelector('#type').value)
       width = Number(document.querySelector('#width').value)
       height = Number(document.querySelector('#height').value)
@@ -374,50 +469,65 @@
       work = document.querySelector('#work')
       memo = document.querySelector('#memo').value
 
+			
+			
+/*===== window 공차로 인한 변수 setting start ============================*/	
+
       const frame_width = width
       const frame_height = height
-      const window_height = height - book.tolerancebook.window130[3]
-      const screen_height = height - 55
-
-      let side_width, center_width, outside_bar_count, inside_bar_count
-      let sindow_part_count, screen_frame_count, screen_width
+      const side_height = height -62
+      const screen_height = height -56  //55.5->56
+			const window_part1_height = height-202
+			const window_part2_height = height-202
+			
+			
+      let side_width, center_width, window_part1_width, window_part2_width
+      let sindow_part_count, sindow_part1_count, sindow_part2_count, screen_frame_count, screen_width
       let price, color_price = Number(book.colorbook[color])
 
-      /*window_part_count에 대해서 검토 바랍니다.*/
+
       switch (type) {
         case 2:
-          side_width = (width - book.tolerancebook.window112[0]) / 2
+          side_width = width/2 + 3
           center_width = 0
-          window_width = side_width * 2
-          outside_bar_count = 2
-          inside_bar_count = 2
-          window_part_count = 0
+					window_part1_width = width/2-105
+					window_part2_width = 0
+					screen_width = width / 2 - 9.5
+					
+					window_part_count = 2
+          window_part1_count = 4
+					window_part2_count = 0
           screen_frame_count = 1
-          screen_width = width / 2 + 7
           break
+					
         case 3:
-          side_width = (width - book.tolerancebook.window112[1]) / 4
-          center_width = side_width * 2 + 50
-          window_width = side_width * 2 + center_width
-          outside_bar_count = 2
-          inside_bar_count = 4
-          window_part_count = 0
+          side_width = width/4 + 5.5
+          center_width = width/2 + 61
+					window_part1_width = width/4-102.5
+					window_part2_width = width/2-47
+					screen_width = width /4 - 7.5
+					
+          window_part_count = 4
+          window_part1_count = 4
+					window_part2_count = 2
           screen_frame_count = 2
-          screen_width = side_width + 94
           break
+					
         case 4:
-          side_width = (width - book.tolerancebook.window112[2]) / 4
+          side_width = (width + 70) / 4
           center_width = 0
-          window_width = side_width * 4
-          outside_bar_count = 4
-          inside_bar_count = 4
-          window_part_count = 1
+					window_part1_width = (width-362)/4
+					window_part2_width = 0
+					screen_width = width / 4 -9.5//수정해야 될거 같습니다.
+					
+          window_part_count = 4
+          window_part1_count = 8
+					window_part2_count = 0
           screen_frame_count = 2
-          screen_width = width / 4 + 11
           break;
       }
-
-
+/*===== window 공차로 인한 변수 setting end============================*/
+			
 
       /*frame 자재현황*/
       elements = frame_out.querySelectorAll('span')
@@ -426,59 +536,101 @@
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
-
-      /*창문 자재현황*/
-      elements = window_out.querySelectorAll('span')
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			
+      /*창문(side) 자재현황*/
+      elements = side_out.querySelectorAll('span')
+			console.log(side_out)
       elements[2].innerHTML = book.diesbook[elements[1].textContent]
-      elements[3].innerHTML = window_width * count
+      elements[3].innerHTML = (side_width + side_height)*(type==3?(type-1):type) *2* count
+		
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			
+			/*창문(center) 자재현황*/
+      elements = center_out.querySelectorAll('span')
+      elements[2].innerHTML = book.diesbook[elements[1].textContent]
+      elements[3].innerHTML = type==3?(center_width + side_height) *2* count:''
+      weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
+      elements[4].innerHTML = weight.toLocaleString("en-US")
+      weight_sum = weight_sum + weight
+			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+
+      
 
       /*창문부속 자재현황*/
       elements = window_part_out.querySelectorAll('span')
       elements[2].innerHTML = book.diesbook[elements[1].textContent]
-      elements[3].innerHTML = window_height * window_part_count * count
+      elements[3].innerHTML = side_height * window_part_count * count
+		
       weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
       elements[4].innerHTML = weight.toLocaleString("en-US")
       weight_sum = weight_sum + weight
+			if(window_part_count!=0){bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})}
+			
+			/*창문부속(사이드) 자재현황*/
+			elements = window_part1_out.querySelectorAll('span')
+      elements[2].innerHTML = book.diesbook[elements[1].textContent]
+      elements[3].innerHTML = (window_part1_width+window_part1_height) * window_part1_count * count
+      weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
+      elements[4].innerHTML = weight.toLocaleString("en-US")
+      weight_sum = weight_sum + weight
+			if(window_part_count!=0){bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})}
+			
+			/*창문부속(센터) 자재현황*/
+			elements = window_part2_out.querySelectorAll('span')
+      elements[2].innerHTML = book.diesbook[elements[1].textContent]
+      elements[3].innerHTML = type==3?(window_part2_width+window_part2_height) * window_part2_count * count:''
+      weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
+      elements[4].innerHTML = weight.toLocaleString("en-US")
+      weight_sum = weight_sum + weight
+			if(window_part_count!=0){bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})}
 
       /*방충망 틀 자재현황*/
       switch (screen_frame.value) {
-        case "sc-8":
+        case "SC-8":
+					elements = sc8_out.querySelectorAll('span')
           elements[2].innerHTML = book.diesbook[screen_frame.value]
           elements[3].innerHTML = (screen_width + screen_height) * (type == 2 ? 2 : 4) * count
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
           break;
-        case "sc-19":
+        case "SC-19":
           elements = sc19_out.querySelectorAll('span')
           elements[2].innerHTML = book.diesbook[screen_frame.value]
           elements[3].innerHTML = (screen_width + screen_height) * (type == 2 ? 2 : 4) * count
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
           break;
-        case "sc-20":
+        case "SC-20":
           elements = sc19_out.querySelectorAll('span')
-          elements[2].innerHTML = book.diesbook["sc-19"]
+          elements[2].innerHTML = book.diesbook["SC-19"]
           elements[3].innerHTML = (screen_width * (type == 2 ? 2 : 4) + screen_height * (type == 4 ? 2 : 0)) * count
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
-
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+					
           elements = sc20_out.querySelectorAll('span')
-          elements[2].innerHTML = book.diesbook["sc-20"]
+          elements[2].innerHTML = book.diesbook["SC-20"]
           elements[3].innerHTML = screen_height * (type == 3 ? 4 : 2) * count
           weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
           elements[4].innerHTML = weight.toLocaleString("en-US")
           weight_sum = weight_sum + weight
+					bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
           break;
         case "미설치":
           break;
       }
-
+			
+			console.log(bar_data);
+			
       elements = result_out.querySelectorAll('span')
       elements[4].innerHTML = weight_sum.toLocaleString("en-US")
 
@@ -509,13 +661,13 @@
       elements = product_parts.querySelectorAll('span')
       switch (type) {
         case 2:
-          price = 14500 * count;
+          price = 23380 * count;
           break;
         case 3:
-          price = 20600 * count;
+          price = 33140 * count;
           break;
         case 4:
-          price = 24200 * count;
+          price = 40740 * count;
           break;
       } /*임시값으로 수정 필요*/
       elements[3].innerHTML = price.toLocaleString("en-US")
@@ -538,41 +690,58 @@
 
       /*=========절단 상세내역=====================*/
 
-
-
-
       /*frame 절단내역*/
       elements = frame_cut.querySelectorAll('span')
       elements[2].innerHTML = color
       elements[3].innerHTML = frame_width + "mm X " + 2 * count
       elements[4].innerHTML = frame_height + "mm X " + 2 * count
 
-      /*창문 절단내역*/
-      elements = window_cut.querySelectorAll('span')
-      elements[2].innerHTML = color
-      elements[3].innerHTML = side_width + "mm X " + (type == 3 ? 2 : type) * count
-      elements[4].innerHTML = type == 3 ? center_width + "mm X " + 1 * count : ""
+      /*창문(사이드) 절단내역*/
+      elements = side_cut.querySelectorAll('span')
 
+      elements[2].innerHTML = color
+      elements[3].innerHTML = side_width + "mm X " + (type == 3 ? 2 : type) *2* count
+      elements[4].innerHTML = side_height + "mm X" + (type == 3 ?2:type)*2*count
+
+      /*창문(센터) 절단내역*/
+      elements = center_cut.querySelectorAll('span')
+
+      elements[2].innerHTML = color
+      elements[3].innerHTML = type==3?center_width + "mm X " + 2* count:''
+      elements[4].innerHTML = type==3?side_height + "mm X" + 2 * count:''
+			
       /*창문부속 절단내역*/
       elements = window_part_cut.querySelectorAll('span')
       elements[2].innerHTML = color
-      elements[4].innerHTML = type == 4 ? window_height + "mm X " + 1 * count : ""
+      elements[4].innerHTML = side_height + "mm X " + window_part_count*count
+			
+			/*창문부속(사이드) 절단내역*/
+      elements = window_part1_cut.querySelectorAll('span')
+      elements[2].innerHTML = color
+			elements[3].innerHTML = window_part1_width + "mm X " + window_part1_count*count
+      elements[4].innerHTML = window_part1_height + "mm X " + window_part1_count*count
+			
+			/*창문부속(센터) 절단내역*/
+      elements = window_part2_cut.querySelectorAll('span')
+      elements[2].innerHTML = color
+			elements[3].innerHTML = type==3?window_part2_width + "mm X " + window_part2_count*count:''
+      elements[4].innerHTML = type==3?window_part2_height + "mm X " + window_part2_count*count:''
 
       /*방충망틀 절단내역*/
       switch (screen_frame.value) {
-        case "sc-8":
+        case "SC-8":
           elements = sc8_cut.querySelectorAll('span')
           elements[2].innerHTML = color
           elements[3].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
           elements[4].innerHTML = screen_height + "mm X " + (type == 2 ? 2 : 4) * count
           break;
-        case "sc-19":
+        case "SC-19":
           elements = sc19_cut.querySelectorAll('span')
           elements[2].innerHTML = color
           elements[3].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
           elements[4].innerHTML = screen_height + "mm X " + (type == 2 ? 2 : 4) * count
           break;
-        case "sc-20":
+        case "SC-20":
           elements = sc19_cut.querySelectorAll('span')
           elements[2].innerHTML = color
           elements[3].innerHTML = screen_width + "mm X " + (type == 2 ? 2 : 4) * count
@@ -585,19 +754,19 @@
           break;
       }
 
-      /*주문내역을 장바구니에 담기 위한 코드입니다.*/
+      /*주문내역을 담기 위한 코드입니다.*/
       order_container = `
         <section class="order-container container">
           <h1 class="section-title">주문내용</h1>
           <ul class="order-list">
-            <li class="work-title"><span>${work_title}<span><li>
+            <li class="work-title"><span>${work_title}<span></li>
             <li class="work">작업구분: <span>${work.checked?"제작작업":"절단작업"}</span></li>
             <li class="type">타입(type): <span>${type}짝문</span></li>
             <li class="wide">너비(wide): <span>${width}mm</span></li>
             <li class="height">높이(height): <span>${height}mm</span></li>
-            <li class="tickness">유리두께(tickness): <span>${tickness}</span></li>
             <li class="screen">방충망(screen) 설치: <span>${screen.checked?"설치":"미설치"}</span></li>
             <li class="rain-hole">빗물 홈: <span>${rain_hole.checked?"설치":"미설치"}</span></li>
+						<li class="count">작업수량: <span>${count}</span></li>
             <li class = "memo"><span>작업관련 요청사항:</span><span style="color:red">${memo}</span></li>
           </ul>
         </section>`
@@ -614,38 +783,90 @@
       const footer_container = `
         <form action="" class="footer">
           <label for="last-weight">
-            <input type="number" id="last-weight" placeholder="kg">
-            <button class="weight_send button">절단완료</button>
+            <input type="number" id="last-weight" placeholder="kg"> 
           </label>
+          <button class="weight_send button">절단완료</button>
+          <button class="work_send button">제작완료</button>
         </form>
         <script>
-          let pageId
-          function getValue(data){
+          let pageId,order
+          function getValue(data,order_data){
             pageId = data
+            order = order_data
           }
-
-          const button = document.querySelector('.weight_send')
-          button.addEventListener('click',async (event)=>{
-          event.preventDefault()
-          const weight = Number(document.querySelector('#last-weight').value)
-            const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                pageId: pageId,
-                weight: weight
-              })
-            })
-            if(res.ok){
-              alert('데이터베이스에 반영되었습니다.')
-              if (window.opener) {
-                window.opener.location.reload();
-              }
-              window.close()
+          
+          /*절단완료 버튼 클릭시*/
+          const cut_button = document.querySelector('.weight_send')
+          cut_button.addEventListener('click',async (event)=>{
+            event.preventDefault()
+            console.log(pageId,order)
+            const weight = Number(document.querySelector('#last-weight').value)
+            console.log(weight);
+            if(weight!=null && weight!=0 && weight!='0'){
+							try{
+								const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+									method: "PUT",
+									headers: {
+										"Content-Type": "application/json",
+									},
+									body: JSON.stringify({
+										pageId: pageId,
+										weight: weight,
+										button_name:cut_button.textContent
+									})
+								})
+								if(res.ok){
+									alert('데이터베이스에 반영되었습니다.')
+									if (window.opener) {
+										window.opener.location.reload();
+									}
+									window.close()
+								}else{
+									alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+									console.log(res)
+								}
+							} catch(error){
+								alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+								console.log(error)
+							}
             }else{
-              alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+              alert('무게를 입력하세요')
+            }
+          })
+            
+          /*제작완료 버튼 클릭시*/
+          const work_button = document.querySelector('.work_send')
+          work_button.addEventListener('click',async (event)=>{
+            event.preventDefault()
+            console.log(pageId,order)
+            if(order=="제작 작업"||order=="제작 작업 "){
+							try{
+								const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+									method: "PUT",
+									headers: {
+										"Content-Type": "application/json",
+									},
+									body: JSON.stringify({
+										pageId: pageId,
+										button_name:work_button.textContent
+									})
+								})
+								if(res.ok){
+									alert('데이터베이스에 반영되었습니다.')
+									if (window.opener) {
+										window.opener.location.reload();
+									}
+									window.close()
+								}else{
+									alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+									console.log(res)
+								}
+							} catch(error){
+								alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+								console.log(error)
+							}
+            }else{
+              alert("절단작업은 제작완료 버튼을 사용할 수 없습니다.")
             }
           })`
       div.innerHTML = order_container + cutting_container + footer_container
@@ -658,28 +879,35 @@
       const blob = new Blob([cutting_html.outerHTML], {
         type: 'text/html'
       });
-      const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          client: client_name,
-          work_title:work_title,
-          order: work.checked ? '제작 작업' : '절단 작업',
-          color: color,
-          part_price: work.checked ? part_price : 0,
-          worklist: worklist_url_key,
-          content: await blobToBase64(blob)
-        })
-      })
-      if (res.ok) {
-        const data = await res.json();
-        window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
-      } else {
-        const errorText = await res.text();
-        console.log('post error', res.statusText, errorText)
-      }
+			try{
+				const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						client: client_name,
+						work_title:work_title,
+						order: work.checked ? '제작 작업' : '절단 작업',
+						limit: now.toISOString().split('T')[0],
+						payment:"결제전",
+						part_price: work.checked ? part_price : 0,
+						worklist: worklist_url_key,
+						content: await blobToBase64(blob),
+						bar_data:bar_data,
+					})
+				})
+				if (res.ok) {
+					const data = await res.json();
+					window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
+				} else {
+					const errorText = await res.text();
+					console.log('post error', res.statusText, errorText)
+				}
+			}catch(error){
+				alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+				console.log(error)
+			}
     });
 
     function blobToBase64(blob) {

@@ -52,7 +52,6 @@ window.addEventListener('load',async ()=>{
 
 		list_works.forEach(list_work=>{
 			list_work.addEventListener('click',async function(){
-				console.log('hello world')
 				const url_key = "https://shrill-hill-66e0.nameofwind.workers.dev/"+this.parentElement.parentElement.getAttribute('data-key');
 				const pageId = this.parentElement.parentElement.getAttribute('data-page')
 
@@ -79,15 +78,20 @@ window.addEventListener('load',async ()=>{
 		limits.forEach(limit=>{
 			limit.addEventListener('change',async function(){
 				const pageId=this.parentElement.parentElement.getAttribute('data-page')
-				const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev/",{
-					method:'PUT',
-					headers:{'Content-Type': 'application/json'},
-					body:JSON.stringify({button_name:"작업기한",pageId:pageId,date:this.value})
-				})
-				if(res.ok){
-					console.log('change limit date')
-				}else{
-					console.log('change limit date error');
+				try{
+					const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev/",{
+						method:'PUT',
+						headers:{'Content-Type': 'application/json'},
+						body:JSON.stringify({button_name:"작업기한",pageId:pageId,date:this.value})
+					})
+					if(res.ok){
+						console.log('change limit date')
+					}else{
+						console.log('change limit date error');
+					}
+				}catch(error){
+					alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+					console.log(error)
 				}
 			})
 		})
@@ -99,16 +103,22 @@ window.addEventListener('load',async ()=>{
 		payments.forEach(payment=>{
 			payment.addEventListener('change',async function(){
 				const pageId=this.parentElement.parentElement.getAttribute('data-page')
-				const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev/",{
-					method:'PUT',
-					headers:{'Content-Type': 'application/json'},
-					body:JSON.stringify({button_name:"결제상태",pageId:pageId,status:this.value})
-				})
-				if(res.ok){
-					console.log('change limit date')
-				}else{
-					console.log('change limit date error');
+				try{
+					const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev/",{
+						method:'PUT',
+						headers:{'Content-Type': 'application/json'},
+						body:JSON.stringify({button_name:"결제상태",pageId:pageId,status:this.value})
+					})
+					if(res.ok){
+						console.log('change limit date')
+					}else{
+						console.log('change limit date error');
+					}	
+				}catch(error){
+					alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+					console.log(error)
 				}
+				
 				
 			})
 		})
@@ -122,13 +132,6 @@ window.addEventListener('load',async ()=>{
 	})
 })
 
-// 새로고침 후 상태 확인 및 비프음 실행
-window.addEventListener('load', () => {
-	if (localStorage.getItem('playBeepAfterReload') === 'true') {
-			localStorage.removeItem('playBeepAfterReload'); // 상태 초기화
-			beep(); // 비프음 재생
-	}
-});
 
 /*websocket connect function*/
 function connectWebSocket() {
@@ -174,23 +177,23 @@ function connectWebSocket() {
 
 /*get Notion Page*/
 async function getNotionPage() {
-    const url = 'https://shrill-hill-66e0.nameofwind.workers.dev';
+	const url = 'https://shrill-hill-66e0.nameofwind.workers.dev';
 
-    const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-    });
+	const response = await fetch(url, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+	});
 
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    } else {
-        console.log(`Failed to retrieve data: ${response.status}`);
-    }
+	if (response.ok) {
+			const data = await response.json();
+			return data;
+	} else {
+			console.log(`Failed to retrieve data: ${response.status}`);
+	}
 
-  }
+}
 
 /*dataUpdate*/
 function dataUpdate(data){

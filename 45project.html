@@ -106,7 +106,7 @@
       <p>[작업관련 요청사항]</p>
       <label for="memo"><textarea name="memo" id="memo" cols="65" rows="5" style="resize:none"></textarea></label>
     </form>
-    <button class="button45">견적산출</button>
+    <button class="result_button">견적산출</button>
     <button class="send">보내기</button>
   </section>
 
@@ -387,7 +387,7 @@
 
 
     /*=========예상 견적가 및 절단내역=====================*/
-    const result_button = document.querySelector('.button45')
+    const result_button = document.querySelector('.result_button')
     result_button.addEventListener('click', () => {
 
       initial() /*초기화*/
@@ -514,6 +514,7 @@
             <li class="height">높이(height): <span>${height}mm</span></li>
             <li class="tickness">유리두께(tickness): <span>${tickness}</span></li>
             <li class="screen">방충망(screen) 설치: <span>${screen.checked?"설치":"미설치"}</span></li>
+						<li class="count">작업수량: <span>${count}</span></li>
             <li class = "memo"><span>작업관련 요청사항:</span><span style="color:red">${memo}</span></li>
           </ul>
         </section>`
@@ -550,27 +551,32 @@
             const weight = Number(document.querySelector('#last-weight').value)
             console.log(weight);
             if(weight!=null && weight!=0 && weight!='0'){
-              const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  pageId: pageId,
-                  weight: weight,
-                  button_name:cut_button.textContent
-                })
-              })
-              if(res.ok){
-                alert('데이터베이스에 반영되었습니다.')
-                if (window.opener) {
-                  window.opener.location.reload();
-                }
-                window.close()
-              }else{
-                alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
-                console.log(res)
-              }
+							try{
+								const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+									method: "PUT",
+									headers: {
+										"Content-Type": "application/json",
+									},
+									body: JSON.stringify({
+										pageId: pageId,
+										weight: weight,
+										button_name:cut_button.textContent
+									})
+								})
+								if(res.ok){
+									alert('데이터베이스에 반영되었습니다.')
+									if (window.opener) {
+										window.opener.location.reload();
+									}
+									window.close()
+								}else{
+									alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+									console.log(res)
+								}
+							} catch(error){
+								alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+								console.log(error)
+							}
             }else{
               alert('무게를 입력하세요')
             }
@@ -582,26 +588,31 @@
             event.preventDefault()
             console.log(pageId,order)
             if(order=="제작 작업"||order=="제작 작업 "){
-              const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  pageId: pageId,
-                  button_name:work_button.textContent
-                })
-              })
-              if(res.ok){
-                alert('데이터베이스에 반영되었습니다.')
-                if (window.opener) {
-                  window.opener.location.reload();
-                }
-                window.close()
-              }else{
-                alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
-                console.log(res)
-              }
+							try{
+								const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+									method: "PUT",
+									headers: {
+										"Content-Type": "application/json",
+									},
+									body: JSON.stringify({
+										pageId: pageId,
+										button_name:work_button.textContent
+									})
+								})
+								if(res.ok){
+									alert('데이터베이스에 반영되었습니다.')
+									if (window.opener) {
+										window.opener.location.reload();
+									}
+									window.close()
+								}else{
+									alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+									console.log(res)
+								}
+							} catch(error){
+								alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+								console.log(error)
+							}
             }else{
               alert("절단작업은 제작완료 버튼을 사용할 수 없습니다.")
             }
@@ -617,30 +628,35 @@
         type: 'text/html'
       });
 			
-      const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          client: client_name,
-          work_title:work_title,
-          order: work.checked ? '제작 작업' : '절단 작업',
-					limit: now.toISOString().split('T')[0],
-					payment:"결제전",
-          part_price: work.checked ? part_price : 0,
-          worklist: worklist_url_key,
-          content: await blobToBase64(blob),
-					bar_data:bar_data,
-        })
-      })
-      if (res.ok) {
-        const data = await res.json();
-        window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
-      } else {
-        const errorText = await res.text();
-        console.log('post error', res.statusText, errorText)
-      }
+      try{
+				const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						client: client_name,
+						work_title:work_title,
+						order: work.checked ? '제작 작업' : '절단 작업',
+						limit: now.toISOString().split('T')[0],
+						payment:"결제전",
+						part_price: work.checked ? part_price : 0,
+						worklist: worklist_url_key,
+						content: await blobToBase64(blob),
+						bar_data:bar_data,
+					})
+				})
+				if (res.ok) {
+					const data = await res.json();
+					window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
+				} else {
+					const errorText = await res.text();
+					alert('post error', res.statusText, errorText)
+				}
+			}catch(error){
+				alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
+				console.log(error)
+			}
     });
 
     function blobToBase64(blob) {
