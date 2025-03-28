@@ -47,12 +47,12 @@
     }
 
     .result {
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       border-bottom: 1px solid green;
     }
 
     .cutting {
-      grid-template-columns: 1fr 1fr 1fr 2fr 2fr 1fr;
+      grid-template-columns: repeat(7,1fr);
       border-bottom: 1px solid green;
     }
 
@@ -72,9 +72,19 @@
       text-align: center;
     }
 
-    input[type="checkbox"] {
+
+		input[type="checkbox"] {
       cursor: pointer;
+			width: initial;
     }
+		.dies{
+			grid-template-columns: repeat(5, 2fr) 1fr 1fr;
+			padding: 0;
+			grid-gap: .5rem;
+		}
+		.dies button{
+			margin: .5rem;
+		}
 
   </style>
 </head>
@@ -82,25 +92,37 @@
 <body>
   <section class="input container">
     <h1 class="section-title work-title">방범창살(고시)</h1>
-    <form action="" class="input-form grid">
-      <label for="width">너비(width): <input id="width" type="number" placeholder="mm">mm</label>
-      <label for="height">높이(height): <input id="height" type="number" placeholder="mm">mm</label>
-      <label for="color">색상(color):
-        <select name="color" id="color">
-          <option value="헨켈">헨켈(단가:10,500원)</option>
-          <option value="메탈실버">메탈실버(단가:11,000원)</option>
-          <option value="백색">백색(단가:11,000원)</option>
-          <option value="검정색">검정색(단가:11,500원)</option>
-          <option value="코팅색상">다른색상(단가:12,000원)</option>
-        </select>
-      </label>
-      <label for="center_bar">중간 바 수량: <input id="center_bar" type="number" value="1"></label>
-      <label for="count">작업수량(count): <input id="count" type="number" value="1"></label>
-      <label for="work">제작여부: <input type="checkbox" id="work">(체크하지 않을시 절단작업만 시행합니다.)</label>
-      <p>[작업관련 요청사항]</p>
-      <label for="memo"><textarea name="memo" id="memo" cols="65" rows="5" style="resize:none"></textarea></label>
-    </form>
-    <button class="result_button">견적산출</button>
+    	<form class="grid">
+				<ul class="dies-list" >
+					<li class="dies-title dies">
+						<span>너비(width)</span>
+						<span>높이(height)</span>     			
+						<span>색상(color)</span>
+						<span>중간바 수량(center)</span>
+						<span>작업수량(count)</span>
+					</li>
+					<li class="dies-item dies">
+						<input class="width" type="number" placeholder="mm">
+						<input class="height" type="number" placeholder="mm">
+						<select name="color" id="color">
+							<option value="헨켈">헨켈(단가:10,500원)</option>
+							<option value="메탈실버">메탈실버(단가:11,000원)</option>
+							<option value="백색">백색(단가:11,000원)</option>
+							<option value="검정색">검정색(단가:11,500원)</option>
+							<option value="코팅색상">다른색상(단가:12,000원)</option>
+						</select>
+						<input class="center" type="number" value=1>
+						<input class="count" type="number" value=1>
+						<button class="add-dies">작업 추가</button>
+						<button class="delete-dies" style='background-color: red'>작업 삭제</button>
+					</li>
+				</ul>
+				<label for="work">제작여부: <input type="checkbox" id="work">(체크하지 않을시 절단작업만 시행합니다.)</label>
+				<p>[작업관련 요청사항]</p>
+				<label for="memo"><textarea name="memo" id="memo" cols="65" rows="5" style="resize:none"></textarea></label>
+      </form>
+      
+    <button class="button">견적산출</button>
     <button class="send">보내기</button>
   </section>
 
@@ -108,22 +130,7 @@
     <h1 class="section-title">자재소요</h1>
     <ul class="result-list">
       <li class="title result">
-        <span>구분</span><span>형번호</span><span>단위무게(kg/m)</span><span>길이(mm)</span><span>무게(kg)</span>
-      </li>
-      <li class="width result">
-        <span>창틀(단홀)</span><span>4203(25X25mm 각 파이프)</span><span></span><span></span><span></span>
-      </li>
-      <li class="height result">
-        <span>창틀(무홀)</span><span>4203(25X25mm 각 파이프)</span><span></span><span></span><span></span>
-      </li>
-      <li class="width_center result">
-        <span>중간 바(쌍홀)</span><span>4203(25X25mm 각 파이프)</span><span></span><span></span><span></span>
-      </li>
-      <li class="height_center result">
-        <span>창살</span><span>RP-19*17(19mm 파이프)</span><span></span><span></span><span></span>
-      </li>
-      <li class="result-total result">
-        <span>총계</span><span></span><span></span><span></span><span></span>
+        <span>형번호</span><span>단위무게(kg/m)</span><span>길이(mm)</span><span>무게(kg)</span>
       </li>
     </ul>
   </section>
@@ -132,17 +139,7 @@
     <h1 class="section-title">예상 견적가격</h1>
     <ul class="price-list">
       <li class="title price">
-        <span>구분</span><span>총무게(kg)</span><span>단가</span><span>금액</span>
-      </li>
-
-      <li class="sub-total price">
-        <span>방범창틀/창살 등</span><span></span><span></span><span></span>
-      </li>
-      <li class="production-cost price">
-        <span>인건비</span><span></span><span></span><span></span>
-      </li>
-      <li class="total price">
-        <span>총 제작비</span><span></span><span></span><span></span>
+        <span>형번호</span><span>총무게(kg)</span><span>단가</span><span>금액</span>
       </li>
     </ul>
   </section>
@@ -151,25 +148,14 @@
     <h1 class="section-title">절단 내역</h1>
     <ul class="cutting-list">
       <li class="title cutting">
-        <span>구분</span><span>형번호</span><span>색상</span><span>절단길이</span><span>홀끝-절단위치</span><span>확인</span>
-      </li>
-      <li class="width cutting">
-        <span>창틀(단홀)</span><span>4203(25X25mm 각 파이프)</span><span></span><span></span><span></span><input type="checkbox">
-      </li>
-      <li class="height cutting">
-        <span>창틀(무홀)</span><span>4203(25X25mm 각 파이프)</span><span></span><span></span><span></span><input type="checkbox">
-      </li>
-      <li class="width_center cutting">
-        <span>중간 바(쌍홀)</span><span>4203(25X25mm 각 파이프)</span><span></span><span></span><span></span><input type="checkbox">
-      </li>
-      <li class="height_center cutting">
-        <span>창살</span><span>RP-19*17(19mm 파이프)</span><span></span><span></span><span></span><input type="checkbox">
+        <span>형번호</span><span>색상</span><span>너비</span><span>높이</span><span>홀끝 간격(홀) / 높이중심</span><span>너비 확인</span><span>높이 확인</span>
       </li>
     </ul>
   </section>
 
   <script>
-        const book = {
+		/*=================변수설정======================*/
+    const book = {
       "diesbook": {
         /*형번호:무게(kg/m)*/
         "3036":0.760,
@@ -204,8 +190,8 @@
 				"4204(45X45mm 각 파이프)":0.551,
 				"4206(40X20mm 각 파이프)":0.270,
 				"4207(35X35mm 각 파이프)":0.412,
-				"45P-16-1(창틀)":0.480,
-				"45P-19(창문)":0.476,
+				"45P-16-1(창문)":0.480,
+				"45P-19(창틀)":0.476,
 				"80SL-508-1":0.598,
 				"COR-100(코너 바)":1.101,
 				"CW-4464(마리온)":2.611,
@@ -252,12 +238,12 @@
 				"NS88SL-803":0.459,
 				"RP-19*17(19mm 파이프)":0.147,
 				"RP-25*22.6(25mm 파이프)":0.215,
-				"SC-19":0.327,
-				"SC-20":0.340,
-				"SC-21":0.095,
-				"SC-5":0.326,
-				"SC-8":0.172,
-				"SC-9":0.147,
+				"SC-19(방충망)":0.327,
+				"SC-20(방충망)":0.340,
+				"SC-21(방충망)":0.095,
+				"SC-5(방충망)":0.326,
+				"SC-8(방충망)":0.172,
+				"SC-9(방충망)":0.147,
 				"SPA-1501":0.916,
 				"SWL-F-50(마리온)":2.155,
 				"SWL-F-51(마리온)":1.690,
@@ -274,6 +260,7 @@
 				"TBSW230SL-101":3.246,
 				"TBSW230SL-801":0.370,
 				"TBSW230SL-GB28":0.140,
+
       },
       "colorbook": {
         /*색상바 단가*/
@@ -283,250 +270,283 @@
         "검정색": 11500,
         "코팅색상": 12000,
       },
-      "tolerancebook": {
-        /*슬라이딩 윈도우 공차 : [2짝문 너비공차, 3짝문 너비공차, 4짝문 너비공차, 높이공차]*/
-        "window112": [-175, -192, -292, -68],
-        "screen112": [7, 94, 11, -55],
-        "window88": [-147, -156, -235, -68],
-        "screen88": [-2, 86, -5, -55],
-        /*프로젝트 윈도우 공차 : [너비공차,높이공차]*/
-        "project45": [-36, -36],
-				
-        "project-parts": [115, 145],
-      },
-      "glassbook112": {
-        "8mm": ["NS112SL-401", "NS112SL-604", "NS112SL-701", "NS112SL-801"],
-        "16mm": ['NS112SL-403', 'NS112SL-602', 'NS112SL-702', 'NS112SL-802'],
-        "20mm": ['NS112SL-404', 'NS112SL-607', 'NS112SL-707', 'NS112SL-807'],
-      },
-			"glassbook88":{
-				"8mm": ["NS85SL-401", "NS85SL-601", "NS88SL-701", "NS88SL-801"],
-        "16mm": ['NS88SL-403', 'NS85SL-603', 'NS88SL-703', 'NS88SL-803'],
-			},
-			"glassbook45": {
-        "8mm": ["1110(오사이)"],
-        "16mm": ['1116(오사이)'],
-        "20mm": ['1116-1(오사이)'],
-      },
     }
-
 
     let cutting_html = document.createElement('html');
     const style = document.querySelector('style').innerHTML
     cutting_html.innerHTML = `
-  <!DOCTYPE html>
-  <html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <title>security flame File</title>
-    <style>${style}</style>
-  </head>
-  <body>
-  </body>
-  </html>`
-    /*===end of main code==============================*/
+			<!DOCTYPE html>
+			<html lang="ko">
+			<head>
+				<meta charset="UTF-8">
+				<title>dies cutting File</title>
+				<style>${style}</style>
+			</head>
+			<body>
+			</body>
+			</html>`
 
+		/*================================================*/
 
-
-
-
-
-
-
-    /*=========변수설정=====================*/
-    const work_title = document.querySelector('.work-title').textContent
-    const width_result = document.querySelector('.width.result')
-    const height_result = document.querySelector('.height.result')
-    const width_center_result = document.querySelector(".width_center.result")
-		const height_center_result = document.querySelector(".height_center.result")
+		const dies_list = document.querySelector('.dies-list')
+		const dies_item = document.querySelector('.dies-item')
 		
-    const result_out = document.querySelector('.result-total.result')
-    const sub_total = document.querySelector('.sub-total.price')
-    const production_cost = document.querySelector('.production-cost.price')
-    const total = document.querySelector('.total.price')
+		dies_list.addEventListener('click', (e) => {
+			/*추가버튼*/
+			if (e.target && e.target.classList.contains('add-dies')) {
+				e.preventDefault();
+				const newItem = dies_item.cloneNode(true);
 
-    const width_cut = document.querySelector('.width.cutting')
-    const height_cut = document.querySelector('.height.cutting')
-    const width_center_cut = document.querySelector(".width_center.cutting")
-		const height_center_cut = document.querySelector(".height_center.cutting")
+				// 복사된 항목의 입력 값 초기화
+				newItem.querySelector('.width').value = '';
+				newItem.querySelector('.height').value = '';
+				newItem.querySelector('.center').value = 1;
+				newItem.querySelector('.count').value = 1;
 
-    let width, height, color, center_bar, count, work, memo
+				// dies-list에 복사된 항목 추가
+				dies_list.appendChild(newItem);
+			}
+			
+			/*삭제버튼*/
+			if (e.target && e.target.classList.contains('delete-dies')) {
+        e.preventDefault();
+
+        // 클릭된 버튼의 부모 요소(.dies-item)를 삭제
+        const deleteItem = e.target.closest('.dies-item');
+        if (deleteItem) {
+            deleteItem.remove();
+        }
+    	}
+		});
+		
+
+    /*=========예상 견적가 및 절단내역=====================*/
+		
+		/*전역변수 설정*/
+    const work_title = document.querySelector('.work-title').textContent
+
+    let width, height, color, center, count, work, memo, length, pipe_count, start_point
     let order_container
-    let part_price = 0;
 		let bar_data =[]
-
-
-    /*=========초기화=====================*/
-
-    const initial = () => {
-      const results = document.querySelectorAll('.result');
+		let weight_sum = 0,count_sum=0,cost=0;
+		
+		/*초기화 */
+		const initial = () => {
+      const results = document.querySelectorAll('.result-item');
       results.forEach(result => {
-        if (result.className != "title result") {
-          elements = result.querySelectorAll('span');
-          elements[2].innerHTML = elements[3].innerHTML = elements[4].innerHTML = ""
-        }
+        result.remove();
       })
 
-      const expect_prices = document.querySelectorAll('.price');
+      const results_total = document.querySelectorAll('.result-total');
+      results_total.forEach(result => {
+        result.remove();
+      })
+
+      const expect_prices = document.querySelectorAll('.price-item');
       expect_prices.forEach(expect_price => {
-        if (expect_price.className != "title price") {
-          elements = expect_price.querySelectorAll('span')
-          elements[2].innerHTML = elements[3].innerHTML = ""
-        }
+        expect_price.remove()
+      })
+			const price_total = document.querySelectorAll('.price-total');
+      price_total.forEach(price => {
+        price.remove();
       })
 
-      const cuttings = document.querySelectorAll('.cutting');
+      const cuttings = document.querySelectorAll('.cutting-item');
       cuttings.forEach(cutting => {
-        if (cutting.className != "title cutting") {
-          elements = cutting.querySelectorAll('span')
-          elements[2].innerHTML = elements[3].innerHTML = elements[4].innerHTML = ""
-        }
+        cutting.remove()
       })
     }
 
-
-
-
-
-    /*=========예상 견적가 및 절단내역=====================*/
-    const result_button = document.querySelector('.result_button')
+		
+    const result_button = document.querySelector('.button')
     result_button.addEventListener('click', () => {
+		
+		//배열의 길이를 0으로 설정하여 배열을 비웁니다.
+		bar_data.length=0;
+			
+		//합계를 초기화 합니다.	
+		weight_sum = 0,count_sum=0
+			
+		initial()
+		const dies_items = document.querySelectorAll('.dies-item')
+		const result_list = document.querySelector('.result-list')
+    const prices_list = document.querySelector('.price-list')
+		const cutting_list = document.querySelector('.cutting-list')
+		
+		let elements, sum = 0, weight = 0
+		work = document.querySelector('#work')
+		memo = document.querySelector('#memo').value
+		let price
 
-      initial() /*초기화*/
+		/*자재현황*/
+		dies_items.forEach(dies_item=>{
+			//25mm 각 파이프 자재현황 추가
+			elements = document.createElement('li')
+			weight_per = book.diesbook["4203(25X25mm 각 파이프)"]
+			width = Number(dies_item.querySelectorAll('input')[0].value)
+			height = Number(dies_item.querySelectorAll('input')[1].value)
+			color = dies_item.querySelector('#color').value
+			center = Number(dies_item.querySelectorAll('input')[2].value)
+			count = Number(dies_item.querySelectorAll('input')[3].value)
+			count_sum = count_sum+count
+			length = width*2+height*2+width*center
+			weight = weight_per*length*count/1000
+			elements.innerHTML=`
+				<span>"4203(25X25mm 각 파이프)"</span>
+				<span>${weight_per.toLocaleString("en-US")}</span>
+				<span>${(length*count).toLocaleString("en-US")}</span>
+				<span>${weight.toLocaleString("en-US")}</span>`
+			elements.classList.add('result', 'result-item')
+			
+			result_list.appendChild(elements)
+			weight_sum = weight_sum + weight
+			
+			bar_data.push({
+				barname:"4203(25X25mm 각 파이프)",
+				color:color,
+				length:length*count
+			})
+			
+			//19파이 파이프 자재현황 추가
+			elements = document.createElement('li')
+			weight_per = book.diesbook["RP-19*17(19mm 파이프)"]
+			
+			pipe_count = width%100>30?Math.floor(width/100):Math.floor(width/100)-1
 
-      /*변수 설정*/
-      let elements, sum = 0,
-        weight = 0,
-        weight_sum = 0
-      width = Number(document.querySelector('#width').value)
-      height = Number(document.querySelector('#height').value)
-      color = document.querySelector('#color').value
-      center_bar = document.querySelector('#center_bar').value
-      count = Number(document.querySelector('#count').value)
-      work = document.querySelector('#work')
-      memo = document.querySelector('#memo').value
+			length=height*pipe_count
+			weight = weight_per*length*count/1000
+			elements.innerHTML=`
+				<span>"RP-19*17(19mm 파이프)"</span>
+				<span>${weight_per.toLocaleString("en-US")}</span>
+				<span>${(length*count).toLocaleString("en-US")}</span>
+				<span>${weight.toLocaleString("en-US")}</span>`
+			elements.classList.add('result', 'result-item')
+			
+			result_list.appendChild(elements)
+			weight_sum = weight_sum + weight
+			
+			bar_data.push({
+				barname:"RP-19*17(19mm 파이프)",
+				color:color,
+				length:length*count
+			})
+		})
+    
+		/*총계를 삽입합니다.*/
+		elements = document.createElement('li')
+		elements.innerHTML=`
+				<span>총계</span>
+				<span></span>
+				<span></span>
+				<span>${weight_sum.toLocaleString("en-US")}</span>`
+			elements.classList.add('result', 'result-total')
+			result_list.appendChild(elements)	
+			
+		/*=========예상견적가=====================*/
+
+
+		/*자재견적가*/
+			
+		/*자재비 예상견적가*/			
+		const result_items = document.querySelectorAll('.result-item')
+		result_items.forEach(result_item=>{
+			elements = document.createElement('li')
+			console.log(result_item)
+			price=Number(result_item.querySelectorAll('span')[3].innerHTML)*book.colorbook[color]
+			elements.innerHTML=`
+				<span>${result_item.querySelectorAll('span')[0].innerHTML}</span>
+				<span>${result_item.querySelectorAll('span')[3].innerHTML}</span>
+				<span>${book.colorbook[color].toLocaleString("en-US")}</span>
+				<span>${price.toLocaleString("en-US")}</span>`
+			elements.classList.add('price', 'price-item')
+			prices_list.appendChild(elements)
+			sum = sum + price
+		})
+			
+		/*자재비 소계 예상견적가*/
+		elements = document.createElement('li')
+		elements.innerHTML=`
+				<span>자재비 소개</span>
+				<span></span>
+				<span></span>
+				<span>${sum.toLocaleString("en-US")}</span>`
+		elements.classList.add('price', 'price-item')
+		prices_list.appendChild(elements)		
+
+		/*제작비(인건비) 예상견적가*/
+		elements = document.createElement('li')
+		cost= 2500
+		price=cost*count_sum
+		elements.innerHTML=`
+				<span>인건비</span>
+				<span>${count_sum.toLocaleString("en-US")}</span>
+				<span>${cost.toLocaleString("en-US")}</span>
+				<span>${price.toLocaleString("en-US")}</span>`
+		elements.classList.add('price', 'price-item')
+		prices_list.appendChild(elements)	
+		sum = sum + price
+			
+		/*총 제작비 예상견적가*/
+		elements = document.createElement('li')
+		elements.innerHTML=`
+				<span>총 제작비</span>
+				<span></span>
+				<span></span>
+				<span>${(sum).toLocaleString("en-US")}</span>`
+		elements.classList.add('price', 'price-total')
+		prices_list.appendChild(elements)	
 
 			
+		/*=========절단 상세내역=====================*/
+		dies_items.forEach(dies_item=>{
 			
-/*===== 변수 setting start ============================*/		
-      let price, color_price = Number(book.colorbook[color])
-			let ref = Math.floor(width/100)*100+20 //120,220,320,...
-			let pipe_count = width%100>20?Math.floor(width/100):Math.floor(width/100)-1
-			let start_point = 20<width%100 && width%100<80?80+(width-(pipe_count+1)*100+20)/2:(width-(pipe_count+1)*100-20)/2
-
-/*===== 변수 setting end ============================*/	
-
+			width = Number(dies_item.querySelectorAll('input')[0].value)
+			height = Number(dies_item.querySelectorAll('input')[1].value)
+			color = dies_item.querySelector('#color').value
+			center = Number(dies_item.querySelectorAll('input')[2].value)
+			count = Number(dies_item.querySelectorAll('input')[3].value)
+			pipe_count = width%100>30?Math.floor(width/100):Math.floor(width/100)-1
+			start_point = 30<width%100 && width%100<80?80+(width-(pipe_count+1)*100+20)/2:(width-(pipe_count+1)*100-20)/2
 			
-      /*방법창틀(너비) 자재현황*/
-      elements = width_result.querySelectorAll('span')
-      elements[2].innerHTML = book.diesbook[elements[1].textContent]
-      elements[3].innerHTML = width * 2 * count
-      weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
-      elements[4].innerHTML = weight.toLocaleString("en-US")
-      weight_sum = weight_sum + weight
-			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			//25mm 각파이프
+			elements = document.createElement('li')
+			console.log("절단내역에서",center, count,(center+2)*count)
+			elements.innerHTML=`
+				<span>4203(25X25mm 각 파이프)</span>
+				<span>${color}</span>
+				<span>${width.toLocaleString("en-US")}mmX${(center+2)*count}</span>
+				<span>${height.toLocaleString("en-US")}mmX${2*count}</span>
+				<span>${start_point}mm(${pipe_count}홀) / ${Math.floor(height/2)}mm</span>
+				<span><input type="checkBox"></span>
+				<span><input type="checkBox"></span>`
+			elements.classList.add('cutting', 'cutting-item')
+			cutting_list.appendChild(elements)
 			
-      /*방법창틀(높이) 자재현황*/
-      elements = height_result.querySelectorAll('span')
-      elements[2].innerHTML = book.diesbook[elements[1].textContent]
-      elements[3].innerHTML = height*2 * count
-      weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
-      elements[4].innerHTML = weight.toLocaleString("en-US")
-      weight_sum = weight_sum + weight
-			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
+			//19파이 파이프
+			elements = document.createElement('li')
+			elements.innerHTML=`
+				<span>RP-19*17(19mm 파이프)</span>
+				<span>${color}</span>
+				<span></span>
+				<span>${height.toLocaleString("en-US")}mmX${pipe_count*count}</span>
+				<span></span>
+				<span><input type="checkBox"></span>
+				<span><input type="checkBox"></span>`
+			elements.classList.add('cutting', 'cutting-item')
+			cutting_list.appendChild(elements)
 			
+		})
 			
-			/*중간바 자재현황*/
-      elements = width_center_result.querySelectorAll('span')
-      elements[2].innerHTML = book.diesbook[elements[1].textContent]
-      elements[3].innerHTML = width * center_bar * count
-      weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
-      elements[4].innerHTML = weight.toLocaleString("en-US")
-      weight_sum = weight_sum + weight
-			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
-
-      /*창살 자재현황*/
-      elements = height_center_result.querySelectorAll('span')
-      elements[2].innerHTML = book.diesbook[elements[1].textContent]
-      elements[3].innerHTML = height * pipe_count * count
-      weight = Number(elements[2].innerHTML) * Number(elements[3].innerHTML) / 1000
-      elements[4].innerHTML = weight.toLocaleString("en-US")
-      weight_sum = weight_sum + weight
-			bar_data.push({barname:elements[1].innerHTML,color:color,length:elements[3].innerHTML})
-
-			
-      elements = result_out.querySelectorAll('span')
-      elements[4].innerHTML = weight_sum.toLocaleString("en-US")
-
-      
-      /*=========예상견적가=====================*/
-
-
-      /*자재견적가*/
-      elements = sub_total.querySelectorAll('span')
-      elements[1].innerHTML = weight_sum.toLocaleString("en-US")
-      elements[2].innerHTML = color_price.toLocaleString("en-US")
-      price = Math.ceil(weight_sum * color_price)
-      elements[3].innerHTML = price.toLocaleString("en-US")
-      sum = sum + price
-
-
-      /*제작비(인건비) 예상견적가*/
-      elements = production_cost.querySelectorAll('span')
-      price = 30000
-      elements[2].innerHTML = Number(price).toLocaleString("en-US")
-      elements[3].innerHTML = price.toLocaleString("en-US")
-      sum = sum + price
-
-      /*총 제작비 예상견적가*/
-      elements = total.querySelectorAll('span')
-      elements[3].innerHTML = sum.toLocaleString("en-US")
-
-      
-
-      /*=========절단 상세내역=====================*/
-
-
-      /*방법창틀(너비) 절단내역*/
-      elements = width_cut.querySelectorAll('span')
-      elements[2].innerHTML = color
-      elements[3].innerHTML = width + "mm X " + 2 * count
-			elements[4].innerHTML = start_point + `mm(${pipe_count})`
-
-
-      /*방법창틀(높이) 절단내역*/
-      elements = height_cut.querySelectorAll('span')
-      elements[2].innerHTML = color
-      elements[3].innerHTML = height + "mm X " + 2 * count
-
-      /*중간바 절단내역*/
-      elements = width_center_cut.querySelectorAll('span')
-      elements[2].innerHTML = color
-      elements[3].innerHTML = center_bar==0?"":width + "mm X " + center_bar * count
-			elements[4].innerHTML = center_bar==0?"":start_point + `mm(${pipe_count})`
-			
-			
-      /*창살 절단내역*/
-      elements = height_center_cut.querySelectorAll('span')
-      elements[2].innerHTML = color
-      elements[3].innerHTML = height + "mm X " + pipe_count * count
-
-
-
-      /*주문내역을 담기 위한 코드입니다.*/
-      order_container = `
-        <section class="order-container container">
-          <h1 class="section-title">주문내용</h1>
-          <ul class="order-list">
-            <li class="work-title"><span>${work_title}<span></li>
-            <li class="work">작업구분: <span>${work.checked?"제작작업":"절단작업"}</span></li>
-            <li class="wide">너비(wide): <span>${width}mm</span></li>
-            <li class="height">높이(height): <span>${height}mm</span></li>
-						<li class="count">중간바 수량: <span>${center_bar}</span></li>
-						<li class="count">작업수량: <span>${count}</span></li>
-            <li class = "memo"><span>작업관련 요청사항:</span><span style="color:red">${memo}</span></li>
-          </ul>
-        </section>`
+		/*주문내역을 담기 위한 코드입니다.*/
+		order_container = `
+			<section class="order-container container">
+				<h1 class="section-title">주문내용</h1>
+				<ul class="order-list">
+					<li class="work-title"><span>${work_title}<span></li>
+					<li class="work">작업구분: <span>${work.checked?"제작작업":"절단작업"}</span></li>
+					<li class = "memo"><span>작업관련 요청사항:</span><span style="color:red">${memo}</span></li>
+				</ul>
+			</section>`
 
     })
 
@@ -534,7 +554,8 @@
 
     const send = document.querySelector('.send');
     send.addEventListener('click', async () => {
-
+			/*body 초기화*/
+			cutting_html.querySelector('body').innerHTML='';
       const div = document.createElement('div')
       const cutting_container = document.querySelector('.cutting-container').outerHTML
       const footer_container = `
@@ -546,9 +567,9 @@
           <button class="work_send button">제작완료</button>
         </form>
         <script>
-          let pageId,order
+          let id,order
           function getValue(data,order_data){
-            pageId = data
+            id = data
             order = order_data
           }
           
@@ -556,9 +577,9 @@
           const cut_button = document.querySelector('.weight_send')
           cut_button.addEventListener('click',async (event)=>{
             event.preventDefault()
-            console.log(pageId,order)
+            
             const weight = Number(document.querySelector('#last-weight').value)
-            console.log(weight);
+            
             if(weight!=null && weight!=0 && weight!='0'){
 							try{
 								const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
@@ -567,7 +588,7 @@
 										"Content-Type": "application/json",
 									},
 									body: JSON.stringify({
-										pageId: pageId,
+										id: id,
 										weight: weight,
 										button_name:cut_button.textContent
 									})
@@ -595,7 +616,7 @@
           const work_button = document.querySelector('.work_send')
           work_button.addEventListener('click',async (event)=>{
             event.preventDefault()
-            console.log(pageId,order)
+            
             if(order=="제작 작업"||order=="제작 작업 "){
 							try{
 								const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
@@ -604,7 +625,7 @@
 										"Content-Type": "application/json",
 									},
 									body: JSON.stringify({
-										pageId: pageId,
+										id: id,
 										button_name:work_button.textContent
 									})
 								})
@@ -636,8 +657,7 @@
       const blob = new Blob([cutting_html.outerHTML], {
         type: 'text/html'
       });
-			
-      try{
+			try{
 				const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
 					method: "POST",
 					headers: {
@@ -649,23 +669,28 @@
 						order: work.checked ? '제작 작업' : '절단 작업',
 						limit: now.toISOString().split('T')[0],
 						payment:"결제전",
-						part_price: work.checked ? part_price : 0,
+						part_price: 0,
 						worklist: worklist_url_key,
 						content: await blobToBase64(blob),
 						bar_data:bar_data,
+						weight_sum:weight_sum,
+						count_sum:count_sum,
+						cost:cost
 					})
 				})
 				if (res.ok) {
 					const data = await res.json();
-					window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
+					console.log(data)
+	        window.location.href = 'https://kim-29.github.io/WhasungAluminium/';
 				} else {
 					const errorText = await res.text();
-					alert('post error', res.statusText, errorText)
+					console.log('post error', res.statusText, errorText)
 				}
 			}catch(error){
 				alert("데이터베이스에 반영되지 않았습니다. 다시 시도하세요")
 				console.log(error)
 			}
+      
     });
 
     function blobToBase64(blob) {

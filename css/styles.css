@@ -93,3 +93,11 @@ button{
 .soundButton{
 	background-color: red;
 }
+li.price {
+	display: grid;
+	place-items: center;
+	text-align: center;
+	padding-block: .5rem;
+	grid-template-columns: repeat(6, 1fr);
+	border-bottom: 1px solid green;
+}

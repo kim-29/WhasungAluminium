@@ -426,7 +426,7 @@
     let order_container
     let part_price = 0;
 		let bar_data =[]
-
+		let weight_sum = 0,count_sum=0,cost=0;
 
     /*=========초기화=====================*/
 
@@ -463,10 +463,15 @@
     /*=========예상 견적가 및 절단내역=====================*/
     const result_button = document.querySelector('.result_button')
     result_button.addEventListener('click', () => {
-
+			
+			//배열의 길이를 0으로 설정하여 배열을 비웁니다.
+			bar_data.length=0;
+			//합계를 초기화 합니다.	
+			weight_sum = 0,count_sum=0
+			
       initial() /*초기화*/
       
-      let elements, sum = 0, weight = 0, weight_sum = 0
+      let elements, sum = 0, weight = 0
 			
       type = Number(document.querySelector('#type').value)
       width = Number(document.querySelector('#width').value)
@@ -476,6 +481,7 @@
       tickness_16 = document.querySelector('#tickness-16').value
       screen_frame = document.querySelector('#screen-frame')
       count = Number(document.querySelector('#count').value)
+			count_sum = count_sum + count
       screen = document.querySelector('#screen')
       rain_hole = document.querySelector('#rain-hole')
       work = document.querySelector('#work')
@@ -681,10 +687,11 @@
       sum = sum + price
 
       /*제작비(인건비) 예상견적가*/
+			cost=2500
       elements = production_cost.querySelectorAll('span')
       elements[1].innerHTML = weight_sum.toLocaleString("en-US")
-      elements[2].innerHTML = Number(2500).toLocaleString("en-US")
-      price = Math.ceil(weight_sum * 2500)
+      elements[2].innerHTML = Number(cost).toLocaleString("en-US")
+      price = Math.ceil(weight_sum * cost)
       elements[3].innerHTML = price.toLocaleString("en-US")
       sum = sum + price
 
@@ -786,7 +793,8 @@
 
     const send = document.querySelector('.send');
     send.addEventListener('click', async () => {
-
+			/*body 초기화*/
+			cutting_html.querySelector('body').innerHTML='';
       const div = document.createElement('div')
       const cutting_container = document.querySelector('.cutting-container').outerHTML
       const footer_container = `
@@ -798,9 +806,9 @@
           <button class="work_send button">제작완료</button>
         </form>
         <script>
-          let pageId,order
+          let id,order
           function getValue(data,order_data){
-            pageId = data
+            id = data
             order = order_data
           }
           
@@ -808,9 +816,9 @@
           const cut_button = document.querySelector('.weight_send')
           cut_button.addEventListener('click',async (event)=>{
             event.preventDefault()
-            console.log(pageId,order)
+            
             const weight = Number(document.querySelector('#last-weight').value)
-            console.log(weight);
+            
             if(weight!=null && weight!=0 && weight!='0'){
 							try{
 								const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
@@ -819,7 +827,7 @@
 										"Content-Type": "application/json",
 									},
 									body: JSON.stringify({
-										pageId: pageId,
+										id: id,
 										weight: weight,
 										button_name:cut_button.textContent
 									})
@@ -847,7 +855,7 @@
           const work_button = document.querySelector('.work_send')
           work_button.addEventListener('click',async (event)=>{
             event.preventDefault()
-            console.log(pageId,order)
+            
             if(order=="제작 작업"||order=="제작 작업 "){
 							try{
 								const res = await fetch("https://shrill-hill-66e0.nameofwind.workers.dev", {
@@ -856,7 +864,7 @@
 										"Content-Type": "application/json",
 									},
 									body: JSON.stringify({
-										pageId: pageId,
+										id: id,
 										button_name:work_button.textContent
 									})
 								})
@@ -904,6 +912,9 @@
 						worklist: worklist_url_key,
 						content: await blobToBase64(blob),
 						bar_data:bar_data,
+						weight_sum:weight_sum,
+						count_sum:count_sum,
+						cost:cost,
 					})
 				})
 				if (res.ok) {
