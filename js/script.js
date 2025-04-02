@@ -47,8 +47,10 @@ const book = {
 				"GAL-4-1(겔러리)":0.234,
 				"HAT130SL-103":1.736,
 				"HAT130SL-601":1.055,
+				"HAT130SL-801":0.375,
 				"N560016(마리온)":0.325,
 				"NS112-B":0.641,
+				"NS112-D":1.365,
 				"NS112SL-104":1.158,
 				"NS112SL-401":0.599,
 				"NS112SL-403":0.606,
@@ -82,12 +84,12 @@ const book = {
 				"NS88SL-803":0.459,
 				"RP-19*17(19mm 파이프)":0.147,
 				"RP-25*22.6(25mm 파이프)":0.215,
-				"SC-19(방충망)":0.327,
-				"SC-20(방충망)":0.340,
-				"SC-21(방충망)":0.095,
-				"SC-5(방충망)":0.326,
-				"SC-8(방충망)":0.172,
-				"SC-9(방충망)":0.147,
+				"SC-19":0.327,
+				"SC-20":0.340,
+				"SC-21":0.095,
+				"SC-5":0.326,
+				"SC-8":0.172,
+				"SC-9":0.147,
 				"SPA-1501":0.916,
 				"SWL-F-50(마리온)":2.155,
 				"SWL-F-51(마리온)":1.690,
@@ -102,8 +104,11 @@ const book = {
 				"SWL-V-6(마리온)":1.237,
 				"TB-A3123":1.531,
 				"TBSW230SL-101":3.246,
+				"TBSW230SL-601":0.869,
+				"TBSW230SL-602":1.048,
 				"TBSW230SL-801":0.370,
-				"TBSW230SL-GB28":0.140,
+				"TBSW230SL-GB28(오사이)":0.140,
+				
 
       },
       "colorbook": {
@@ -243,7 +248,12 @@ window.addEventListener('load',async ()=>{
 						
 						result_items.forEach(result_item=>{
 							elements = document.createElement('li')
-							item_weight = Math.round((book.diesbook[result_item.barname]*result_item.length/1000*weight_ratio)*100)/100
+							if(result_item.length!=0){
+								item_weight = Math.round((book.diesbook[result_item.barname]*result_item.length/1000*weight_ratio)*100)/100	
+							}else{
+								item_weight = 0
+							}
+							
 							color_price = book.colorbook[result_item.color]
 							
 							item_price = Math.round(color_price*item_weight/100)*100
