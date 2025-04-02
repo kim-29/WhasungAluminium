@@ -108,8 +108,6 @@ const book = {
 				"TBSW230SL-602":1.048,
 				"TBSW230SL-801":0.370,
 				"TBSW230SL-GB28(오사이)":0.140,
-				
-
       },
       "colorbook": {
         /*색상바 단가*/

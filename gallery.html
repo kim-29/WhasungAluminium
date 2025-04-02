@@ -122,7 +122,7 @@
 							<option value="검정색">검정색(단가:11,500원)</option>
 							<option value="코팅색상">다른색상(단가:12,000원)</option>
 						</select>
-						<input class="wing" type="number" placeholder="mm">
+						<input class="wing" type="number">
 						<input class="center" type="number" value=0>
 						<input class="count" type="number" value=1>
 						<button class="add-dies">작업 추가</button>
@@ -424,7 +424,7 @@
 			weight_per = book.diesbook[type]
 			
 
-			length=width*wing
+			length=(width-15)*wing
 			weight = weight_per*length*count/1000
 			elements.innerHTML=`
 				<span>${type}</span>
@@ -512,7 +512,7 @@
 
 		/*제작비(인건비) 예상견적가*/
 		elements = document.createElement('li')
-		cost= 2500
+		cost= 5000
 		price=cost*count_sum
 		elements.innerHTML=`
 				<span>인건비</span>
@@ -571,7 +571,7 @@
 			elements.innerHTML=`
 				<span>${type}</span>
 				<span>${color}</span>
-				<span>${width.toLocaleString("en-US")}mmX${wing*count}</span>
+				<span>${(width-15).toLocaleString("en-US")}mmX${wing*count}</span>
 				<span></span>
 				<span></span>
 				<span><input type="checkBox"></span>`
